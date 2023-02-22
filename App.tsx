@@ -1,8 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SplashProvider } from './src/providers/SplashProvider';
 
-const App = () => {
-  return <View />;
-};
+const App = () => <SplashProvider />;
 
 export default App;
