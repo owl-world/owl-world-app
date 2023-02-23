@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { SignInRequest } from '@/types/auth';
+import { SignInEntity } from '@/types/auth';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps } from '../Stack';
 import { SignInPresenter } from './SignInPresenter';
@@ -17,7 +17,7 @@ export const SignInContainer = () => {
 
   const { signIn } = useAuth();
 
-  const [form, setForm] = useState<SignInRequest>(initialForm);
+  const [form, setForm] = useState<SignInEntity>(initialForm);
 
   const onChange = useCallback(
     (key: string, value: string) => {

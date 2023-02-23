@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dimensions, Image, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import { SubmitButton } from '@/components/Button';
+import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { LabelButton, SubmitButton } from '@/components/Button';
+import { SignInput } from '@/components/Input';
 import { SplitRow } from '@/components/SplitSpace';
-import { Text } from '@/components/Text';
 
 const { height } = Dimensions.get('screen');
 
@@ -23,20 +23,9 @@ export const SignInPresenter = ({ onChange, onPressSignIn, onPressSignUp, onPres
       <SplitRow height={height * 0.04} />
 
       <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="학교 이메일"
-          placeholderTextColor={'#7D7D7D'}
-          onChangeText={text => onChange('email', text)}
-        />
+        <SignInput placeholder="학교 이메일" onChangeText={text => onChange('email', text)} />
         <SplitRow height={20} />
-        <TextInput
-          style={styles.input}
-          placeholder="비밀번호"
-          placeholderTextColor={'#7D7D7D'}
-          secureTextEntry={true}
-          onChangeText={text => onChange('password', text)}
-        />
+        <SignInput placeholder="비밀번호" secureTextEntry={true} onChangeText={text => onChange('password', text)} />
 
         <SplitRow height={30} />
 
@@ -45,15 +34,9 @@ export const SignInPresenter = ({ onChange, onPressSignIn, onPressSignUp, onPres
 
       <SplitRow height={30} />
 
-      <TouchableOpacity style={styles.additionalButton} onPress={onPressSignUp}>
-        <Text style={styles.additionalButtonText}>학교인증 회원가입</Text>
-      </TouchableOpacity>
-
+      <LabelButton onPress={onPressSignUp}>학교인증 회원가입</LabelButton>
       <SplitRow height={11} />
-
-      <TouchableOpacity style={styles.additionalButton} onPress={onPressNonMemberSignIn}>
-        <Text style={styles.additionalButtonText}>비회원 로그인</Text>
-      </TouchableOpacity>
+      <LabelButton onPress={onPressNonMemberSignIn}>비회원 로그인</LabelButton>
     </SafeAreaView>
   );
 };
@@ -82,14 +65,5 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-  },
-  additionalButton: {
-    alignItems: 'center',
-  },
-  additionalButtonText: {
-    color: '#454545',
-    fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 15,
   },
 });

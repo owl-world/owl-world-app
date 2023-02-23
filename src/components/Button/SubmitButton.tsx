@@ -15,7 +15,7 @@ export const SubmitButton = ({ onPress, children }: PropsWithChildren<Props>) =>
 const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
-    paddingVertical: 7,
+    paddingVertical: 8,
     backgroundColor: '#FFE05C',
     shadowColor: 'rgb(0,0,0)',
     shadowOpacity: 0.25,
@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
     },
   },
   text: {
+    fontSize: 13,
+    fontWeight: '400',
+    lineHeight: 15,
     textAlign: 'center',
   },
 });
