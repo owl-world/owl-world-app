@@ -1,5 +1,5 @@
 import React from 'react';
-import { RootStackScreenProps } from '@/screens/Stack';
+import { RootStackScreenProps } from '@/screens/Stack/Stack';
 import { useNavigation } from '@react-navigation/native';
 import { SignUpSuccessPresenter } from './SignUpSuccessPresenter';
 

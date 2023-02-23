@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { SignInEntity } from '@/types/auth';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackScreenProps } from '../Stack';
+import { RootStackScreenProps } from '../Stack/Stack';
 import { SignInPresenter } from './SignInPresenter';
 
 type Navigation = RootStackScreenProps<'SignIn'>['navigation'];

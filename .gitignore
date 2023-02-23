@@ -70,3 +70,5 @@ yarn-error.log
 
 # *?
 .bundle
+
+/src/screens/Demo/*
