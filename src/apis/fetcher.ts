@@ -8,7 +8,7 @@ export const fetcher = axios.create({
 });
 
 export const setHeader = (accessToken: string) => {
-  fetcher.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  fetcher.defaults.headers.common.Authorization = `${accessToken}`;
 };
 
 export const deleteHeader = () => {

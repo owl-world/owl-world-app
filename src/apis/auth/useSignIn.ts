@@ -1,8 +1,8 @@
 import { useMutation } from 'react-query';
-import { SignInRequest } from '@/types/auth';
+import { SignInEntity } from '@/types/auth';
 import { fetcher } from '../fetcher';
 
-const signIn = (request: SignInRequest) => {
+const signIn = (request: SignInEntity) => {
   return fetcher.post('/auth/login', request);
 };
 
