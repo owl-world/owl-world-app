@@ -3,16 +3,22 @@ import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native'
 import { LabelButton, SubmitButton } from '@/components/Button';
 import { SignInput } from '@/components/Input';
 import { SplitRow } from '@/components/SplitSpace';
+import { SignUpEntity } from '@/types/member';
 
 const { height } = Dimensions.get('screen');
 
 type Props = {
-  onChange: (key: string, value: string) => void;
+  onChange: (key: keyof SignUpEntity, value: string) => void;
   onPressSignUp: () => void;
   onPressNonMemberSignIn: () => void;
 };
 
-const forms = [
+type InputType = {
+  key: keyof SignUpEntity;
+  placeholder: string;
+};
+
+const forms: InputType[] = [
   { key: 'email', placeholder: '학교 이메일' },
   { key: 'password', placeholder: '비밀번호' },
   { key: 'university', placeholder: '학교' },
@@ -69,14 +75,5 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingVertical: 20,
-  },
-  additionalButton: {
-    alignItems: 'center',
-  },
-  additionalButtonText: {
-    color: '#454545',
-    fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 15,
   },
 });

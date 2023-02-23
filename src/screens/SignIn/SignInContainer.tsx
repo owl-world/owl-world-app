@@ -20,7 +20,7 @@ export const SignInContainer = () => {
   const [form, setForm] = useState<SignInEntity>(initialForm);
 
   const onChange = useCallback(
-    (key: string, value: string) => {
+    (key: keyof SignInEntity, value: string) => {
       setForm({ ...form, [key]: value });
     },
     [form]

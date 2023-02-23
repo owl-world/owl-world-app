@@ -22,15 +22,17 @@ export const SignUpContainer = () => {
   const [form, setForm] = useState<SignUpEntity>(initialForm);
 
   const onChange = useCallback(
-    (key: string, value: string) => {
+    (key: keyof SignUpEntity, value: string) => {
       setForm({ ...form, [key]: value });
     },
     [form]
   );
 
-  const onPressSignUp = () => {
+  const onPressSignUp = async () => {
     if (validate()) {
-      signUp(form);
+      signUp(form, {
+        onSuccess: goNavSignUpSuccess,
+      });
     }
   };
 
@@ -44,6 +46,10 @@ export const SignUpContainer = () => {
     }
 
     return isValid;
+  };
+
+  const goNavSignUpSuccess = () => {
+    navigation.navigate('SignUpSuccess');
   };
 
   const onPressNonMemberSignIn = () => {

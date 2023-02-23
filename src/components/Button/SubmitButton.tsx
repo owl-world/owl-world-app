@@ -1,13 +1,14 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { Text } from '../Text';
 
 type Props = {
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
 };
 
-export const SubmitButton = ({ onPress, children }: PropsWithChildren<Props>) => (
-  <TouchableOpacity style={styles.container} onPress={onPress}>
+export const SubmitButton = ({ style, onPress, children }: PropsWithChildren<Props>) => (
+  <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
     <Text style={styles.text}>{children}</Text>
   </TouchableOpacity>
 );

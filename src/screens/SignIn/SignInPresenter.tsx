@@ -3,11 +3,12 @@ import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native'
 import { LabelButton, SubmitButton } from '@/components/Button';
 import { SignInput } from '@/components/Input';
 import { SplitRow } from '@/components/SplitSpace';
+import { SignInEntity } from '@/types/auth';
 
 const { height } = Dimensions.get('screen');
 
 type Props = {
-  onChange: (key: string, value: string) => void;
+  onChange: (key: keyof SignInEntity, value: string) => void;
   onPressSignIn: () => void;
   onPressSignUp: () => void;
   onPressNonMemberSignIn: () => void;
@@ -50,20 +51,5 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     paddingHorizontal: 30,
-  },
-  input: {
-    fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 16,
-    borderRadius: 10,
-    paddingVertical: 17,
-    paddingHorizontal: 10,
-    backgroundColor: '#FFFDF7',
-    shadowColor: 'rgb(0,0,0)',
-    shadowOpacity: 0.1,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
   },
 });
