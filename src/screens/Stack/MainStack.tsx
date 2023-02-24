@@ -2,12 +2,14 @@ import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeScreen } from '../Home';
+import { FreePostScreen } from '../Post/FreePost';
 import { ReviewScreen } from '../Review';
 import { RootStackParamList, RootStackScreenProps } from './Stack';
 
 export type MainStackParamList = {
   Review: undefined;
   Home: undefined;
+  FreePost: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -22,6 +24,7 @@ export const MainStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Review" component={ReviewScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="FreePost" component={FreePostScreen} />
     </Stack.Navigator>
   );
 };
