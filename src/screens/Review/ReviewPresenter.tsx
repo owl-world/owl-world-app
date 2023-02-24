@@ -7,18 +7,14 @@ import { Text } from '@/components/Text';
 
 const { height } = Dimensions.get('screen');
 
-type Props = {};
+type Props = {
+  reviews: any;
+  findRatingByReviewId: (reviewId: number) => number;
+  onChange: (key: number, value: number) => void;
+  onPressSubmit: () => void;
+};
 
-const reviews = [
-  { id: 1, review: '우리 학교 시설은 충분하다.' },
-  { id: 2, review: '학과 내 분위기가 좋다.' },
-  { id: 3, review: '커리큘럼이 잘 짜여있다.' },
-  { id: 4, review: '학교에서 재직자를 배려해 다니는 것에 어려움이 없다.' },
-  { id: 5, review: '수업과 과제의 난이도가 적당하다.' },
-  { id: 6, review: '나는 우리 학교에 다니는 것이 자랑스럽다.' },
-];
-
-export const ReviewPresenter = ({}: Props) => {
+export const ReviewPresenter = ({ reviews, findRatingByReviewId, onChange, onPressSubmit }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <SplitRow height={50} />
@@ -36,12 +32,17 @@ export const ReviewPresenter = ({}: Props) => {
       <SplitRow height={23} />
 
       {reviews.map(review => (
-        <Review review={review.review} />
+        <Review
+          key={review.id}
+          rating={findRatingByReviewId(review.id)}
+          review={review.review}
+          onChange={rating => onChange(review.id, rating)}
+        />
       ))}
 
       <SplitRow height={40} />
 
-      <SubmitButton style={styles.button} onPress={() => null}>
+      <SubmitButton style={styles.button} onPress={onPressSubmit}>
         확인
       </SubmitButton>
     </SafeAreaView>

@@ -6,15 +6,17 @@ import { Text } from '../Text';
 
 type Props = {
   review: string;
+  rating: number;
+  onChange: (rating: number) => void;
 };
 
-export const Review = ({ review }: Props) => {
+export const Review = ({ rating, review, onChange }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{review}</Text>
       <SplitRow height={11} />
       <View style={styles.starContainer}>
-        <Stars rating={3} />
+        <Stars rating={rating} onChange={onChange} />
       </View>
       <SplitRow height={5} />
     </View>
