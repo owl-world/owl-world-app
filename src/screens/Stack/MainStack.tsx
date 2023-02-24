@@ -5,6 +5,7 @@ import { HomeScreen } from '../Home';
 import { FreePostScreen } from '../Post/FreePost';
 import { FreePostDetailScreen } from '../Post/FreePost/FreePostDetail';
 import { FreePostWriteScreen } from '../Post/FreePost/FreePostWrite';
+import { QnAScreen } from '../QnA';
 import { ReviewScreen } from '../Review';
 import { RootStackParamList, RootStackScreenProps } from './Stack';
 
@@ -16,6 +17,7 @@ export type MainStackParamList = {
     postId: number;
   };
   FreePostWrite: undefined;
+  QnA: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -33,6 +35,7 @@ export const MainStack = () => {
       <Stack.Screen name="FreePost" component={FreePostScreen} />
       <Stack.Screen name="FreePostDetail" component={FreePostDetailScreen} />
       <Stack.Screen name="FreePostWrite" component={FreePostWriteScreen} />
+      <Stack.Screen name="QnA" component={QnAScreen} />
     </Stack.Navigator>
   );
 };
