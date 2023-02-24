@@ -54,11 +54,12 @@ const authSlice = createSlice({
       state.accessToken = accessToken;
       state.memberId = memberId;
     },
-    onLogout() {
+    onLogout(state) {
       EncryptedStorage.clear();
       deleteHeader();
 
-      return { ...initialState };
+      state.accessToken = '';
+      state.memberId = null;
     },
   },
   extraReducers: builder => {
@@ -75,5 +76,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { onLogin } = authSlice.actions;
+export const { onLogin, onLogout } = authSlice.actions;
 export default authSlice.reducer;

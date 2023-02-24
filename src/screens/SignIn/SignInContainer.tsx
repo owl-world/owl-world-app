@@ -8,8 +8,8 @@ import { SignInPresenter } from './SignInPresenter';
 type Navigation = RootStackScreenProps<'SignIn'>['navigation'];
 
 const initialForm = {
-  email: '',
-  password: '',
+  email: 'youngseo@google.com',
+  password: '1234',
 };
 
 export const SignInContainer = () => {
