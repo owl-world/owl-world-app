@@ -12,8 +12,24 @@ export type Question = {
   title: string;
   content: string;
   answerCount: number;
-  answers: null;
+  answers: Answer[];
   member: Member;
   universityDto: University;
   createdAt: string;
+};
+
+export type AnswerRequest = {
+  questionId: number;
+  answer: string;
+};
+
+export type Answer = {
+  id: number;
+  content: string;
+  likeCount: number;
+  question: Question;
+  member: Member;
+  createdAt: string;
+  accepted: boolean;
+  liked: boolean;
 };

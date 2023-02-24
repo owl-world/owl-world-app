@@ -2,53 +2,62 @@ import { format } from 'date-fns';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Question } from '@/types/qna';
+import { SvgCssUri } from 'react-native-svg';
+import { Answer } from '@/types/qna';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 
 type Props = {
-  question: Question;
+  answer: Answer;
   onPress?: (questionId: number) => void;
 };
 
-export const QuestionRow = ({ question, onPress }: Props) => {
+export const AnswerRow = ({ answer, onPress }: Props) => {
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.spaceBetween]}>
         <View style={styles.row}>
-          <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
+          {answer.member.universityMajorDto ? (
+            <SvgCssUri style={styles.logo} uri={answer.member.universityMajorDto.university.logo} />
+          ) : (
+            <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
+          )}
 
           <SplitColumn width={4} />
           <View>
             <View style={styles.row}>
-              <Text style={styles.question}>Question</Text>
+              <Text style={styles.question}>Answer</Text>
               <SplitColumn width={10} />
-              <Text style={styles.createdAt}>{format(new Date(question.createdAt), 'MM/dd hh:mm')}</Text>
+              <Text style={styles.createdAt}>{format(new Date(answer.createdAt), 'MM/dd hh:mm')}</Text>
             </View>
-            <Text style={styles.nickname}>{question.member.nickname || '닉네임'}</Text>
+            <Text style={styles.nickname}>{answer.member.nickname || '닉네임'}</Text>
           </View>
+        </View>
+
+        <View style={[styles.heartContainer, styles.row]}>
+          {answer.liked ? (
+            <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/filled_heart.png')} />
+          ) : (
+            <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/heart.png')} />
+          )}
+          <SplitColumn width={2} />
+          <Text style={styles.likeText}>{answer.likeCount}</Text>
         </View>
       </View>
 
       <SplitRow height={9} />
 
       {onPress ? (
-        <TouchableOpacity style={styles.contentContainer} onPress={() => onPress(question.id)}>
-          <Text style={styles.content}>{question.content}sss</Text>
+        <TouchableOpacity style={styles.contentContainer} onPress={() => onPress(answer.id)}>
+          <Text style={styles.content}>{answer.content}sss</Text>
         </TouchableOpacity>
       ) : (
         <View style={styles.contentContainer}>
-          <Text style={styles.content}>{question.content}</Text>
+          <Text style={styles.content}>{answer.content}</Text>
         </View>
       )}
 
-      <SplitRow height={9} />
-
-      <View style={[styles.footerContainer, styles.row]}>
-        <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/comment.png')} />
-        <SplitColumn width={2} />
-        <Text style={styles.interactionText}>{question.answerCount}</Text>
-      </View>
+      <SplitRow height={20} />
     </View>
   );
 };
@@ -99,8 +108,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
   contentContainer: {
-    minHeight: 70,
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 8,
     borderRadius: 10,
     backgroundColor: '#FBFBFB',
