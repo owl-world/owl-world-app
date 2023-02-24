@@ -9,7 +9,7 @@ import { Text } from '../Text';
 type Props = {
   title: string;
   subTitle: string;
-  isWritable: boolean;
+  isWritable?: boolean;
   onPressPrev?: () => void;
   onPressWrite?: () => void;
 };

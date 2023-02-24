@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { PostResponse } from '@/types/post';
+import { PostsResponse } from '@/types/post';
 import { fetcher } from '../fetcher';
 
 type GetPopularPostsResponse = {
-  data: PostResponse;
+  data: PostsResponse;
 };
 
 const getPopularPosts = async () => {

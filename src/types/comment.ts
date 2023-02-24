@@ -6,3 +6,8 @@ export type Comment = {
   id: number;
   memberDto: Member;
 };
+
+export type CommentResponse = {
+  postId: number;
+  comment: string;
+};

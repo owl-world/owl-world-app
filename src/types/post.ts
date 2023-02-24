@@ -1,4 +1,4 @@
-import { Comment } from '@babel/types';
+import { Comment } from './comment';
 import { Member } from './member';
 
 export type Post = {
@@ -13,7 +13,7 @@ export type Post = {
   createdAt: string;
 };
 
-export type PostResponse = {
+export type PostsResponse = {
   totalPages: number;
   totalElements: number;
   posts: Post[];

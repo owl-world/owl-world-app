@@ -1,5 +1,5 @@
-import React from 'react';
-import { useGetPosts } from '@/apis/post/useGetPosts';
+import React, { useEffect } from 'react';
+import { useGetFreePosts } from '@/apis/post/useGetFreePosts';
 import { MainStackScreenProps } from '@/screens/Stack/MainStack';
 import { useNavigation } from '@react-navigation/native';
 import { FreePostPresenter } from './FreePostPresenter';
@@ -8,7 +8,7 @@ type Navigation = MainStackScreenProps<'FreePost'>['navigation'];
 
 export const FreePostContainer = () => {
   const navigation = useNavigation<Navigation>();
-  const { posts } = useGetPosts();
+  const { posts, refetch } = useGetFreePosts();
 
   const onPressPost = (postId: number) => {
     navigation.navigate('FreePostDetail', {
@@ -25,6 +25,12 @@ export const FreePostContainer = () => {
     onPressPost,
     onPressWrite,
   };
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      refetch();
+    });
+  }, [navigation, refetch]);
 
   return <FreePostPresenter {...props} />;
 };
