@@ -18,3 +18,8 @@ export type PostsResponse = {
   totalElements: number;
   posts: Post[];
 };
+
+export type PostRequest = {
+  content: string;
+  title: string;
+};

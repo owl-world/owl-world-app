@@ -7,7 +7,7 @@ export type Comment = {
   memberDto: Member;
 };
 
-export type CommentResponse = {
+export type CommentRequest = {
   postId: number;
   comment: string;
 };

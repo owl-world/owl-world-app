@@ -12,7 +12,7 @@ const getFreePosts = async () => {
 };
 
 export const useGetFreePosts = () => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetPosts'], () => getFreePosts());
+  const { data, isLoading, isError, refetch } = useQuery(['useGetFreePosts'], () => getFreePosts());
 
   return {
     posts: data?.posts,

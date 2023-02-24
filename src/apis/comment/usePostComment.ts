@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { CommentResponse } from '@/types/comment';
+import { CommentRequest } from '@/types/comment';
 import { fetcher } from '../fetcher';
 
-const postComment = ({ postId, comment }: CommentResponse) => {
+const postComment = ({ postId, comment }: CommentRequest) => {
   return fetcher.post('/comment', {
     postId,
     content: comment,

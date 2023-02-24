@@ -4,6 +4,7 @@ import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navig
 import { HomeScreen } from '../Home';
 import { FreePostScreen } from '../Post/FreePost';
 import { FreePostDetailScreen } from '../Post/FreePost/FreePostDetail';
+import { FreePostWriteScreen } from '../Post/FreePost/FreePostWrite';
 import { ReviewScreen } from '../Review';
 import { RootStackParamList, RootStackScreenProps } from './Stack';
 
@@ -14,6 +15,7 @@ export type MainStackParamList = {
   FreePostDetail: {
     postId: number;
   };
+  FreePostWrite: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -30,6 +32,7 @@ export const MainStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="FreePost" component={FreePostScreen} />
       <Stack.Screen name="FreePostDetail" component={FreePostDetailScreen} />
+      <Stack.Screen name="FreePostWrite" component={FreePostWriteScreen} />
     </Stack.Navigator>
   );
 };
