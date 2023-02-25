@@ -2,6 +2,9 @@ import React from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BookMarkScreen } from '../BookMark';
+import { NonMemberHomeScreen } from '../Home/NonMemberHome';
+import { PolicyDetailScreen } from '../Policy/PolicyDetail';
 import { SignInScreen } from '../SignIn';
 import { SignUpScreen } from '../SignUp';
 import { SignUpSuccessScreen } from '../SignUp/SignUpSuccess';
@@ -12,6 +15,12 @@ export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   SignUpSuccess: undefined;
+  BookMark: undefined;
+  Home: undefined;
+  PolicyDetail: {
+    universityId: number;
+    code: string;
+  };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, T>;
@@ -39,6 +48,9 @@ export const RootNavigation = () => {
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="SignUpSuccess" component={SignUpSuccessScreen} />
+            <Stack.Screen name="BookMark" component={BookMarkScreen} />
+            <Stack.Screen name="Home" component={NonMemberHomeScreen} />
+            <Stack.Screen name="PolicyDetail" component={PolicyDetailScreen} />
           </Stack.Group>
         )}
       </Stack.Navigator>

@@ -10,6 +10,7 @@ export const fetcher = axios.create({
 });
 
 export const setHeader = (accessToken: string) => {
+  console.log(accessToken);
   fetcher.defaults.headers.common.Authorization = `${accessToken}`;
 };
 
@@ -23,9 +24,9 @@ fetcher.interceptors.request.use(
     // ...
     console.log(`[${request.method}][Axios request url]`);
     console.log(request.url);
-    console.log(request.data);
-    // consxole.log('\n');
-    console.log(request.headers);
+    // console.log(request.data);
+    // // consxole.log('\n');
+    // console.log(request.headers);
     // console.log('yo sb?');
 
     return request;
@@ -44,7 +45,7 @@ fetcher.interceptors.response.use(
     // 응답 데이터를 가공
     // …
     console.log(`[${response.status}][Axios response data]`);
-    console.log(JSON.stringify(response.data));
+    // console.log(JSON.stringify(response.data));
 
     if (!response.data.result) {
       // return new Promise(() => {});

@@ -1,13 +1,18 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { Text } from '../Text';
 
-export const Label = ({ children }: PropsWithChildren) => {
+type Props = {
+  containerStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+};
+
+export const Label = ({ containerStyle, textStyle, children }: PropsWithChildren<Props>) => {
   return (
     <View style={styles.row}>
-      <View style={styles.shadowContainer}>
+      <View style={[styles.shadowContainer, containerStyle]}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{children}</Text>
+          <Text style={[styles.text, textStyle]}>{children}</Text>
         </View>
       </View>
     </View>

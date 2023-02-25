@@ -38,7 +38,7 @@ export const SignInContainer = () => {
   };
 
   const onPressNonMemberSignIn = () => {
-    navigation.navigate('Main');
+    navigation.navigate('BookMark');
   };
 
   const props = {

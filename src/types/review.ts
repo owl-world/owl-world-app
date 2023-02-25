@@ -1,3 +1,5 @@
+import { University } from './university';
+
 export type Review = {
   createdAt: string;
   id: number;
@@ -5,3 +7,8 @@ export type Review = {
 };
 
 export type ReviewRequest = number[];
+
+export type BookMark = {
+  totalScores: number[];
+  universityDto: University;
+};
