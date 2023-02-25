@@ -1,11 +1,13 @@
 import React from 'react';
-import { Dimensions, Image, ImageSourcePropType, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Dimensions, ImageSourcePropType, SafeAreaView, StyleSheet, View } from 'react-native';
+import { SvgCssUri } from 'react-native-svg';
 import { LabelButton } from '@/components/Button';
 import { SearchInput } from '@/components/Input';
 import { Menu } from '@/components/Menu';
 import { PostRow } from '@/components/Post';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
+import { TokenBody } from '@/types/auth';
 import { Post } from '@/types/post';
 
 const { height } = Dimensions.get('screen');
@@ -17,23 +19,27 @@ type MenuType = {
 };
 
 type Props = {
+  member: TokenBody;
   posts?: Post[];
   menus: MenuType[];
   onPressSignOut: () => void;
 };
 
-export const HomePresenter = ({ posts, menus, onPressSignOut }: Props) => {
+export const HomePresenter = ({ member, posts, menus, onPressSignOut }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.fullScreen}>
         <SplitRow height={height * 0.1} />
 
         <View style={styles.profileContainer}>
-          <Image style={styles.majorLogo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
+          <SvgCssUri style={styles.logo} uri={member.universityLogo} />
           <SplitColumn width={7} />
           <View style={styles.proflieSuffixContainer}>
-            <Text style={styles.nickname}>닉네임</Text>
-            <Text style={styles.department}>인하대학교 메카트로닉스공학과</Text>
+            <Text style={styles.nickname}>{member.nickname}</Text>
+            <SplitRow height={2} />
+            <Text style={styles.department}>
+              {member.universityName} {member.majorName}
+            </Text>
           </View>
         </View>
 
@@ -99,6 +105,10 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flexDirection: 'row',
+  },
+  logo: {
+    width: 50,
+    height: 50,
   },
   proflieSuffixContainer: {},
   postContainer: {

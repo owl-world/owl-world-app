@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { usePostFreePost } from '@/apis/post/usePostFreePost';
+import { useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/screens/Stack/MainStack';
 import { PostRequest } from '@/types/post';
 import { useNavigation } from '@react-navigation/native';
@@ -14,9 +15,11 @@ const initialForm = {
 
 export const FreePostWriteContainer = () => {
   const navigation = useNavigation<Navigation>();
-  const [form, setForm] = useState<PostRequest>(initialForm);
 
   const { mutateAsync: savePost } = usePostFreePost();
+  const { member } = useAppSelector(selector => selector.auth);
+
+  const [form, setForm] = useState<PostRequest>(initialForm);
 
   const onChange = (key: keyof PostRequest, value: string) => {
     setForm({ ...form, [key]: value });
@@ -35,6 +38,7 @@ export const FreePostWriteContainer = () => {
   };
 
   const props = {
+    member,
     onChange,
     onPressWrite,
   };

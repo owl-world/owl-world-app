@@ -1,11 +1,12 @@
 import jwtDecode from 'jwt-decode';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { deleteHeader, setHeader } from '@/apis/fetcher';
+import { TokenBody } from '@/types/auth';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 type State = {
   accessToken: string;
-  memberId: number | null;
+  member: TokenBody | null;
 };
 
 const USER_STORAGE_KEY = 'user';
@@ -25,19 +26,19 @@ const setAuthentication = (state: State) => {
   setHeader(state.accessToken);
 };
 
-const storeToken = ({ accessToken, memberId }: State) => {
+const storeToken = ({ accessToken, member }: State) => {
   return EncryptedStorage.setItem(
     USER_STORAGE_KEY,
     JSON.stringify({
       accessToken,
-      memberId,
+      member,
     })
   );
 };
 
 const initialState: State = {
   accessToken: '',
-  memberId: null,
+  member: null,
 };
 
 const authSlice = createSlice({
@@ -46,20 +47,19 @@ const authSlice = createSlice({
   reducers: {
     onLogin(state, action) {
       const accessToken = action.payload;
-      const decodedToken: { memberId: number } = jwtDecode(accessToken);
-      const memberId = decodedToken.memberId;
+      const decodedToken: TokenBody = jwtDecode(accessToken);
 
-      setAuthentication({ accessToken, memberId });
+      setAuthentication({ accessToken, member: accessToken });
 
       state.accessToken = accessToken;
-      state.memberId = memberId;
+      state.member = decodedToken;
     },
     onLogout(state) {
       EncryptedStorage.clear();
       deleteHeader();
 
       state.accessToken = '';
-      state.memberId = null;
+      state.member = null;
     },
   },
   extraReducers: builder => {

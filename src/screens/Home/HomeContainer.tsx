@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGetPopularPosts } from '@/apis/post';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { onLogout } from '@/slices/auth';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from '../Stack/MainStack';
@@ -12,7 +12,9 @@ export const HomeContainer = () => {
   const dispatch = useAppDispatch();
   const naviation = useNavigation<Navigation>();
 
+  const { member } = useAppSelector(selector => selector.auth);
   const { posts } = useGetPopularPosts();
+
   const menus = [
     {
       title: '질문답변',
@@ -48,6 +50,7 @@ export const HomeContainer = () => {
   };
 
   const props = {
+    member,
     posts,
     menus,
     onPressSignOut,
