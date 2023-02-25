@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { usePostLike, usePostUnLike } from '@/apis/like';
 import { useGetQuestion, usePostAnswer } from '@/apis/question';
 import { useAppSelector } from '@/hooks/redux';
 import { RootStackScreenProps } from '@/screens/Stack/Stack';
@@ -7,20 +8,34 @@ import { QnADetailPresenter } from './QnADetailPresenter';
 
 type Route = RootStackScreenProps<'QnADetail'>['route'];
 
-export type LikeType = 'like' | 'unLike';
-
 export const QnADetailContainer = () => {
   const route = useRoute<Route>();
 
   const { questionId } = route.params;
-  const { question } = useGetQuestion(questionId);
-  const { mutateAsync: postAnswer } = usePostAnswer(questionId);
   const { member } = useAppSelector(selector => selector.auth);
+  const { question, refetch: refetchQuestion } = useGetQuestion(questionId);
+
+  const { mutateAsync: like, isLoading: isPostLikeLoading } = usePostLike();
+  const { mutateAsync: unLike, isLoading: isPostUnLikeLoading } = usePostUnLike();
+  const { mutateAsync: postAnswer } = usePostAnswer(questionId);
 
   const [answer, setAnswer] = useState('');
 
-  const onPressLike = (type: LikeType) => {
-    // No API
+  const onPressLike = async (liked: boolean, answerId: number) => {
+    if (isPostLikeLoading || isPostUnLikeLoading) {
+      return;
+    }
+
+    const targetId = answerId;
+    const type = 'answer';
+
+    if (liked) {
+      await unLike({ targetId, type });
+    } else {
+      await like({ targetId, type });
+    }
+
+    refetchQuestion();
   };
 
   const onChange = (value: string) => {

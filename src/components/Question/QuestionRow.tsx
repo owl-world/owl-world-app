@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
+import { nonMemberNickname } from '@/screens/BookMark/BookMarkPresenter';
 import { Question } from '@/types/qna';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
@@ -31,7 +32,7 @@ export const QuestionRow = ({ question, isMember, onPress }: Props) => {
               <SplitColumn width={10} />
               <Text style={styles.createdAt}>{format(new Date(question.createdAt), 'MM/dd hh:mm')}</Text>
             </View>
-            <Text style={styles.nickname}>{isMember ? question.member.nickname : '인하대 아기올빼미1'}</Text>
+            <Text style={styles.nickname}>{isMember ? question.member.nickname : nonMemberNickname}</Text>
           </View>
         </View>
       </View>

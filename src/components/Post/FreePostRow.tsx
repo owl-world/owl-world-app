@@ -27,7 +27,11 @@ export const FreePostRow = React.memo(({ post, onPress }: Props) => {
         <Text style={styles.title}>{post.title}</Text>
 
         <View style={styles.row}>
-          <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/like.png')} />
+          <Image
+            style={styles.interactionIcon}
+            resizeMode="cover"
+            source={require('@/assets/images/filled_heart.png')}
+          />
           <SplitColumn width={1} />
           <Text style={styles.interactionText}>{post.likeCount}</Text>
           <SplitColumn width={2} />

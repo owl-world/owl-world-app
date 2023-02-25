@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { usePostComment } from '@/apis/comment';
+import { usePostLike, usePostUnLike } from '@/apis/like';
 import { useGetFreePost } from '@/apis/post';
 import { MainStackScreenProps } from '@/screens/Stack/MainStack';
 import { useRoute } from '@react-navigation/native';
@@ -11,10 +12,30 @@ export const FreePostDetailContainer = () => {
   const route = useRoute<Route>();
 
   const { postId } = route.params;
-  const { post } = useGetFreePost(postId);
+  const { post, refetch: refetchPost } = useGetFreePost(postId);
+
+  const { mutateAsync: like, isLoading: isPostLikeLoading } = usePostLike();
+  const { mutateAsync: unLike, isLoading: isUnLikeLoading } = usePostUnLike();
   const { mutateAsync: postComment } = usePostComment(postId);
 
   const [comment, setComment] = useState('');
+
+  const onPressLike = async (liked: boolean) => {
+    if (!post || isPostLikeLoading || isUnLikeLoading) {
+      return;
+    }
+
+    const targetId = post.id;
+    const type = 'post';
+
+    if (liked) {
+      await unLike({ targetId, type });
+    } else {
+      await like({ targetId, type });
+    }
+
+    refetchPost();
+  };
 
   const onChange = (value: string) => {
     setComment(value);
@@ -42,6 +63,7 @@ export const FreePostDetailContainer = () => {
   const props = {
     post,
     comment,
+    onPressLike,
     onChange,
     onPressEnter,
   };

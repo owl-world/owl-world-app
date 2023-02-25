@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { Comment } from '@/components/Comment';
@@ -10,16 +10,15 @@ import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { Post } from '@/types/post';
 
-const { height } = Dimensions.get('screen');
-
 type Props = {
   post: Post;
   comment: string;
+  onPressLike: (liked: boolean) => void;
   onChange: (value: string) => void;
   onPressEnter: () => void;
 };
 
-export const FreePostDetailPresenter = ({ post, comment, onChange, onPressEnter }: Props) => {
+export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, onPressEnter }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title="자유게시판" subTitle="올빼미광장" />
@@ -47,7 +46,21 @@ export const FreePostDetailPresenter = ({ post, comment, onChange, onPressEnter 
           <SplitRow height={15} />
 
           <View style={styles.row}>
-            <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/like.png')} />
+            <TouchableOpacity onPress={() => onPressLike(post.liked)}>
+              {post.liked ? (
+                <Image
+                  style={styles.interactionIcon}
+                  resizeMode="cover"
+                  source={require('@/assets/images/filled_heart.png')}
+                />
+              ) : (
+                <Image
+                  style={styles.interactionIcon}
+                  resizeMode="cover"
+                  source={require('@/assets/images/heart.png')}
+                />
+              )}
+            </TouchableOpacity>
             <SplitColumn width={1} />
             <Text style={styles.interactionText}>{post.likeCount}</Text>
             <SplitColumn width={8} />
@@ -138,7 +151,7 @@ const styles = StyleSheet.create({
     color: '#8b8b8b',
     fontSize: 12,
     fontWeight: '500',
-    lineHeight: 15,
+    lineHeight: 18,
   },
   inputContainer: {
     paddingHorizontal: 10,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Header } from '@/components/Header';
 import { CommentInput } from '@/components/Input/CommentInput';
@@ -7,15 +7,12 @@ import { AnswerRow, QuestionRow } from '@/components/Question';
 import { SplitRow } from '@/components/SplitSpace';
 import { TokenBody } from '@/types/auth';
 import { Question } from '@/types/qna';
-import { LikeType } from './QnADetailContainer';
-
-const { height } = Dimensions.get('screen');
 
 type Props = {
-  member: TokenBody;
+  member?: TokenBody;
   question: Question;
   answer: string;
-  onPressLike: (type: LikeType) => void;
+  onPressLike: (liked: boolean, answerId: number) => void;
   onChange: (value: string) => void;
   onPressEnter: () => void;
 };
@@ -33,7 +30,7 @@ export const QnADetailPresenter = ({ member, question, answer, onPressLike, onCh
         <SplitRow height={30} />
 
         {question.answers.map(_answer => {
-          return <AnswerRow key={_answer.id} answer={_answer} />;
+          return <AnswerRow key={_answer.id} answer={_answer} onPressLike={onPressLike} />;
         })}
       </ScrollView>
 

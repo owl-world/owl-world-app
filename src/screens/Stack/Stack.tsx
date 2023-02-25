@@ -56,20 +56,25 @@ export const RootNavigation = () => {
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
-          <Stack.Screen name="MainStack" component={MainStack} />
+          <Stack.Group>
+            <Stack.Screen name="MainStack" component={MainStack} />
+          </Stack.Group>
         ) : (
           <Stack.Group>
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="SignUpSuccess" component={SignUpSuccessScreen} />
-            <Stack.Screen name="BookMark" component={BookMarkScreen} />
-            <Stack.Screen name="Home" component={NonMemberHomeScreen} />
-            <Stack.Screen name="PolicyDetail" component={PolicyDetailScreen} />
-            <Stack.Screen name="QnA" component={QnAScreen} />
-            <Stack.Screen name="QnADetail" component={QnADetailScreen} />
-            <Stack.Screen name="QnAWrite" component={QnAWriteScreen} />
           </Stack.Group>
         )}
+
+        <Stack.Group>
+          <Stack.Screen name="BookMark" component={BookMarkScreen} />
+          <Stack.Screen name="Home" component={NonMemberHomeScreen} />
+          <Stack.Screen name="PolicyDetail" component={PolicyDetailScreen} />
+          <Stack.Screen name="QnA" component={QnAScreen} />
+          <Stack.Screen name="QnADetail" component={QnADetailScreen} />
+          <Stack.Screen name="QnAWrite" component={QnAWriteScreen} />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );

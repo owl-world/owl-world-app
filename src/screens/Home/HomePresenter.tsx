@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, ImageSourcePropType, SafeAreaView, StyleSheet, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { LabelButton } from '@/components/Button';
 import { SearchInput } from '@/components/Input';
@@ -22,10 +23,11 @@ type Props = {
   member?: TokenBody;
   posts?: Post[];
   menus: MenuType[];
+  onPressPost: (postId: number) => void;
   onPressSignOut: () => void;
 };
 
-export const HomePresenter = ({ member, posts, menus, onPressSignOut }: Props) => {
+export const HomePresenter = ({ member, posts, menus, onPressPost, onPressSignOut }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.fullScreen}>
@@ -56,7 +58,11 @@ export const HomePresenter = ({ member, posts, menus, onPressSignOut }: Props) =
 
           {posts &&
             posts.map(post => {
-              return <PostRow post={post} key={post.id} />;
+              return (
+                <TouchableWithoutFeedback key={post.id} onPress={() => onPressPost(post.id)}>
+                  <PostRow post={post} />
+                </TouchableWithoutFeedback>
+              );
             })}
 
           <SplitRow height={13} />

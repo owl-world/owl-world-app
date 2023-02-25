@@ -2,11 +2,15 @@ import React from 'react';
 import { useGetPopularPosts } from '@/apis/post';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { onLogout } from '@/slices/auth';
-import { useNavigation } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from '../Stack/MainStack';
+import { RootStackParamList, RootStackScreenProps } from '../Stack/Stack';
 import { HomePresenter } from './HomePresenter';
 
-type Navigation = MainStackScreenProps<'Home'>['navigation'];
+type Navigation = CompositeScreenProps<
+  MainStackScreenProps<'Home'>,
+  RootStackScreenProps<keyof RootStackParamList>
+>['navigation'];
 
 export const HomeContainer = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +36,12 @@ export const HomeContainer = () => {
       onPress: () => onPressFreePost(),
     },
   ];
+
+  const onPressPost = (postId: number) => {
+    naviation.navigate('FreePostDetail', {
+      postId,
+    });
+  };
 
   const onPressQna = () => {
     if (!member) {
@@ -60,6 +70,7 @@ export const HomeContainer = () => {
     member,
     posts,
     menus,
+    onPressPost,
     onPressSignOut,
   };
 

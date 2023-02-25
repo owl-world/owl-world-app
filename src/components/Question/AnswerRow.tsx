@@ -9,10 +9,10 @@ import { Text } from '../Text';
 
 type Props = {
   answer: Answer;
-  onPress?: (questionId: number) => void;
+  onPressLike: (liked: boolean, answerId: number) => void;
 };
 
-export const AnswerRow = ({ answer, onPress }: Props) => {
+export const AnswerRow = ({ answer, onPressLike }: Props) => {
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.spaceBetween]}>
@@ -35,11 +35,13 @@ export const AnswerRow = ({ answer, onPress }: Props) => {
         </View>
 
         <View style={[styles.heartContainer, styles.row]}>
-          {answer.liked ? (
-            <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/filled_heart.png')} />
-          ) : (
-            <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/heart.png')} />
-          )}
+          <TouchableOpacity onPress={() => onPressLike(answer.liked, answer.id)}>
+            {answer.liked ? (
+              <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/filled_heart.png')} />
+            ) : (
+              <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/heart.png')} />
+            )}
+          </TouchableOpacity>
           <SplitColumn width={2} />
           <Text style={styles.likeText}>{answer.likeCount}</Text>
         </View>
@@ -47,15 +49,9 @@ export const AnswerRow = ({ answer, onPress }: Props) => {
 
       <SplitRow height={9} />
 
-      {onPress ? (
-        <TouchableOpacity style={styles.contentContainer} onPress={() => onPress(answer.id)}>
-          <Text style={styles.content}>{answer.content}sss</Text>
-        </TouchableOpacity>
-      ) : (
-        <View style={styles.contentContainer}>
-          <Text style={styles.content}>{answer.content}</Text>
-        </View>
-      )}
+      <View style={styles.contentContainer}>
+        <Text style={styles.content}>{answer.content}</Text>
+      </View>
 
       <SplitRow height={20} />
     </View>
