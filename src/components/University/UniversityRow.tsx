@@ -9,13 +9,13 @@ import { Text } from '../Text';
 
 type Props = {
   university: University;
-  onPress: (universityId: number) => void;
+  isDetail?: boolean;
 };
 
-export const UniversityRow = ({ university, onPress }: Props) => {
+export const UniversityRow = ({ university, isDetail }: Props) => {
   return (
-    <TouchableOpacity onPress={() => onPress(university.id)}>
-      <View style={[styles.container, styles.row]}>
+    <React.Fragment>
+      <View style={[styles.row]}>
         <SvgCssUri style={styles.logo} uri={university.logo} />
         <SplitColumn width={25} />
         <View style={styles.textContainer}>
@@ -24,31 +24,22 @@ export const UniversityRow = ({ university, onPress }: Props) => {
           <View style={styles.row}>
             <Text style={styles.rate}>종합평점</Text>
             <SplitColumn width={5} />
-            <Stars rating={5} size={16} />
+            <Stars rating={5} size={19} />
           </View>
         </View>
+        {isDetail && (
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>질문답변 게시판</Text>
+          </TouchableOpacity>
+        )}
       </View>
-
-      <SplitRow height={10} />
-    </TouchableOpacity>
+    </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-  },
-  container: {
-    backgroundColor: '#FBFBFB',
-    paddingVertical: 25,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-    shadowColor: 'rgb(0,0,0)',
-    shadowOpacity: 0.1,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
   },
   logo: {
     width: 98,
@@ -68,5 +59,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 17,
+  },
+  button: {
+    left: -40,
+    top: -10,
+    backgroundColor: '#FFF8D8',
+    paddingVertical: 12,
+    paddingHorizontal: 11,
+    borderRadius: 15,
+    shadowColor: 'rgb(0,0,0)',
+    shadowOpacity: 0.05,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+  },
+  buttonText: {
+    color: '#262626',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });

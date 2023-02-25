@@ -7,16 +7,17 @@ import { Text } from '../Text';
 type Props = {
   review: string;
   rating: number;
-  onChange: (rating: number) => void;
+  size?: number;
+  onChange?: (rating: number) => void;
 };
 
-export const Review = ({ rating, review, onChange }: Props) => {
+export const Review = ({ rating, review, size = 35, onChange }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{review}</Text>
       <SplitRow height={11} />
       <View style={styles.starContainer}>
-        <Stars rating={rating} size={35} onChange={onChange} />
+        <Stars rating={rating} size={size} onChange={onChange} />
       </View>
       <SplitRow height={5} />
     </View>
@@ -30,10 +31,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     lineHeight: 15,
-    textAlign: 'center',
+    // textAlign: 'center',
   },
   starContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
 });

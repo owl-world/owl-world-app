@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '@/components/Header';
@@ -11,7 +11,7 @@ import { University } from '@/types/university';
 type Props = {
   universities?: University[];
   onChange: (value: string) => void;
-  onPressUniversity: (universityId: number) => void;
+  onPressUniversity: (universityId: number, code: string) => void;
 };
 
 export const PolicyPresenter = ({ universities, onChange, onPressUniversity }: Props) => {
@@ -32,7 +32,17 @@ export const PolicyPresenter = ({ universities, onChange, onPressUniversity }: P
 
         {universities &&
           universities.map(university => {
-            return <UniversityRow key={university.name} university={university} onPress={onPressUniversity} />;
+            return (
+              <React.Fragment key={university.name}>
+                <TouchableOpacity
+                  style={styles.universityContainer}
+                  onPress={() => onPressUniversity(university.id, university.code)}
+                >
+                  <UniversityRow university={university} />
+                </TouchableOpacity>
+                <SplitRow height={10} />
+              </React.Fragment>
+            );
           })}
       </ScrollView>
     </View>
@@ -45,5 +55,17 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     paddingHorizontal: 10,
+  },
+  universityContainer: {
+    backgroundColor: '#FBFBFB',
+    paddingVertical: 25,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+    shadowColor: 'rgb(0,0,0)',
+    shadowOpacity: 0.15,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
   },
 });
