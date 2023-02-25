@@ -11,15 +11,16 @@ import { TokenBody } from '@/types/auth';
 import { PostRequest } from '@/types/post';
 
 type Props = {
+  universityName: string;
   member?: TokenBody;
   onChange: (key: keyof PostRequest, value: string) => void;
   onPressWrite: () => void;
 };
 
-export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props) => {
+export const QnAWritePresenter = ({ universityName, member, onChange, onPressWrite }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="자유게시판" subTitle="올빼미광장" />
+      <Header title="질문답변 게시판" subTitle={universityName} />
 
       <SplitRow height={30} />
 
@@ -39,14 +40,8 @@ export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props
 
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.titleInput}
-          placeholder="제목을 입력하세요."
-          placeholderTextColor={'#262626'}
-          onChangeText={text => onChange('title', text)}
-        />
-        <TextInput
           style={styles.contentInpu}
-          placeholder="제목을 내용을 입력하세요."
+          placeholder="내용을 입력하세요."
           placeholderTextColor={'#363636'}
           multiline
           onChangeText={text => onChange('content', text)}

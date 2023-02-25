@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useGetQuestion } from '@/apis/question/useGetQuestion';
-import { usePostAnswer } from '@/apis/question/usePostAnswer';
+import { useGetQuestion, usePostAnswer } from '@/apis/question';
 import { MainStackScreenProps } from '@/screens/Stack/MainStack';
 import { useRoute } from '@react-navigation/native';
 import { QnADetailPresenter } from './QnADetailPresenter';

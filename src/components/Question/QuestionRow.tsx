@@ -2,21 +2,27 @@ import { format } from 'date-fns';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SvgCssUri } from 'react-native-svg';
 import { Question } from '@/types/qna';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 
 type Props = {
   question: Question;
+  isMember: boolean;
   onPress?: (questionId: number) => void;
 };
 
-export const QuestionRow = ({ question, onPress }: Props) => {
+export const QuestionRow = ({ question, isMember, onPress }: Props) => {
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.spaceBetween]}>
         <View style={styles.row}>
-          <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
+          {isMember ? (
+            <SvgCssUri style={styles.logo} uri={question.member.universityMajorDto.university.logo} />
+          ) : (
+            <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
+          )}
 
           <SplitColumn width={4} />
           <View>
@@ -25,7 +31,7 @@ export const QuestionRow = ({ question, onPress }: Props) => {
               <SplitColumn width={10} />
               <Text style={styles.createdAt}>{format(new Date(question.createdAt), 'MM/dd hh:mm')}</Text>
             </View>
-            <Text style={styles.nickname}>{question.member.nickname || '닉네임'}</Text>
+            <Text style={styles.nickname}>{isMember ? question.member.nickname : '인하대 아기올빼미1'}</Text>
           </View>
         </View>
       </View>

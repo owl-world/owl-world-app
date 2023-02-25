@@ -63,9 +63,9 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   subTitle: {
-    color: '#C4C4C4',
+    color: '#000000',
     fontSize: 13,
-    fontWeight: '100',
+    fontWeight: '200',
     lineHeight: 15,
     paddingLeft: 27,
   },

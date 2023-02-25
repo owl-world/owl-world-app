@@ -7,6 +7,11 @@ export type QuestionResponse = {
   questions: Question[];
 };
 
+export type QuestionRequest = {
+  universityId: number;
+  content: string;
+};
+
 export type Question = {
   id: number;
   title: string;

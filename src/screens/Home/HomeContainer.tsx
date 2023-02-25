@@ -34,7 +34,14 @@ export const HomeContainer = () => {
   ];
 
   const onPressQna = () => {
-    naviation.navigate('QnA');
+    if (!member) {
+      return;
+    }
+
+    naviation.navigate('QnA', {
+      universityId: member.universityId,
+      universityName: member.universityName,
+    });
   };
 
   const onPressPolicy = () => {

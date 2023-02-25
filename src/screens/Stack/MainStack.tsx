@@ -10,6 +10,7 @@ import { FreePostDetailScreen } from '../Post/FreePost/FreePostDetail';
 import { FreePostWriteScreen } from '../Post/FreePost/FreePostWrite';
 import { QnAScreen } from '../QnA';
 import { QnADetailScreen } from '../QnA/QnADetail';
+import { QnAWriteScreen } from '../QnA/QnAWrite';
 import { ReviewScreen } from '../Review';
 import { RootStackParamList, RootStackScreenProps } from './Stack';
 
@@ -21,9 +22,16 @@ export type MainStackParamList = {
     postId: number;
   };
   FreePostWrite: undefined;
-  QnA: undefined;
+  QnA: {
+    universityId: number;
+    universityName: string;
+  };
   QnADetail: {
     questionId: number;
+  };
+  QnAWrite: {
+    universityId: number;
+    universityName: string;
   };
   Policy: undefined;
   PolicyDetail: {
@@ -51,6 +59,7 @@ export const MainStack = () => {
       <Stack.Screen name="FreePostWrite" component={FreePostWriteScreen} />
       <Stack.Screen name="QnA" component={QnAScreen} />
       <Stack.Screen name="QnADetail" component={QnADetailScreen} />
+      <Stack.Screen name="QnAWrite" component={QnAWriteScreen} />
       <Stack.Screen name="Policy" component={PolicyScreen} />
       <Stack.Screen name="PolicyDetail" component={PolicyDetailScreen} />
     </Stack.Navigator>
