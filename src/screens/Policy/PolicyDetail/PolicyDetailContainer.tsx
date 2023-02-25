@@ -1,12 +1,12 @@
 import React from 'react';
 import { useGetReviews, useGetReviewScores } from '@/apis/review';
 import { useGetUniversity } from '@/apis/university';
+import { RootStackScreenProps } from '@/screens/Stack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { MainStackScreenProps } from '../../Stack/MainStack';
 import { PolicyDetailPresenter } from './PolicyDetailPresenter';
 
-type Navigation = MainStackScreenProps<'PolicyDetail'>['navigation'];
-type Route = MainStackScreenProps<'PolicyDetail'>['route'];
+type Navigation = RootStackScreenProps<'PolicyDetail'>['navigation'];
+type Route = RootStackScreenProps<'PolicyDetail'>['route'];
 
 export const PolicyDetailContainer = () => {
   const navigation = useNavigation<Navigation>();
@@ -18,6 +18,13 @@ export const PolicyDetailContainer = () => {
 
   const { reviews } = useGetReviews();
 
+  const onPressQnA = (_universityId: number, _universityName: string) => {
+    navigation.navigate('QnA', {
+      universityId: _universityId,
+      universityName: _universityName,
+    });
+  };
+
   if (!universityMajor) {
     return;
   }
@@ -26,6 +33,7 @@ export const PolicyDetailContainer = () => {
     universityMajor,
     reviews,
     scores,
+    onPressQnA,
   };
 
   return <PolicyDetailPresenter {...props} />;

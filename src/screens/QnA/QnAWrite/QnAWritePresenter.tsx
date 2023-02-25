@@ -1,12 +1,13 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { WriteButton } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
+import { nonMemberNickname } from '@/screens/BookMark/BookMarkPresenter';
 import { TokenBody } from '@/types/auth';
 import { PostRequest } from '@/types/post';
 
@@ -26,10 +27,18 @@ export const QnAWritePresenter = ({ universityName, member, onChange, onPressWri
 
       <View style={[styles.titleContainer, styles.row]}>
         <View style={[styles.row, styles.leftTitle]}>
-          <SvgCssUri style={styles.universityLogo} uri={member?.universityLogo || null} />
+          {member ? (
+            <SvgCssUri style={styles.universityLogo} uri={member.universityLogo} />
+          ) : (
+            <Image
+              style={styles.universityLogo}
+              resizeMode="cover"
+              source={require('@/assets/images/signup_icon.png')}
+            />
+          )}
           <SplitColumn width={5} />
           <View>
-            <Text style={styles.ninckname}>{member?.nickname}</Text>
+            <Text style={styles.ninckname}>{member ? member.nickname : nonMemberNickname}</Text>
             <Text style={styles.createdAt}>{format(new Date(), 'MM/dd hh:mm')}</Text>
           </View>
         </View>

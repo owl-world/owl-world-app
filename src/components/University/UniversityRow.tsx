@@ -10,9 +10,10 @@ import { Text } from '../Text';
 type Props = {
   university: University;
   isDetail?: boolean;
+  onPressQnA?: (universityId: number, universityName: string) => void;
 };
 
-export const UniversityRow = ({ university, isDetail }: Props) => {
+export const UniversityRow = ({ university, isDetail, onPressQnA }: Props) => {
   return (
     <React.Fragment>
       <View style={[styles.row]}>
@@ -27,8 +28,8 @@ export const UniversityRow = ({ university, isDetail }: Props) => {
             <Stars rating={5} size={19} />
           </View>
         </View>
-        {isDetail && (
-          <TouchableOpacity style={styles.button}>
+        {isDetail && onPressQnA && (
+          <TouchableOpacity style={styles.button} onPress={() => onPressQnA(university.id, university.name)}>
             <Text style={styles.buttonText}>질문답변 게시판</Text>
           </TouchableOpacity>
         )}

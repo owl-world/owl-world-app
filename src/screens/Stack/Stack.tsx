@@ -5,6 +5,9 @@ import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navig
 import { BookMarkScreen } from '../BookMark';
 import { NonMemberHomeScreen } from '../Home/NonMemberHome';
 import { PolicyDetailScreen } from '../Policy/PolicyDetail';
+import { QnAScreen } from '../QnA';
+import { QnADetailScreen } from '../QnA/QnADetail';
+import { QnAWriteScreen } from '../QnA/QnAWrite';
 import { SignInScreen } from '../SignIn';
 import { SignUpScreen } from '../SignUp';
 import { SignUpSuccessScreen } from '../SignUp/SignUpSuccess';
@@ -20,6 +23,17 @@ export type RootStackParamList = {
   PolicyDetail: {
     universityId: number;
     code: string;
+  };
+  QnA: {
+    universityId: number;
+    universityName: string;
+  };
+  QnADetail: {
+    questionId: number;
+  };
+  QnAWrite: {
+    universityId: number;
+    universityName: string;
   };
 };
 
@@ -51,6 +65,9 @@ export const RootNavigation = () => {
             <Stack.Screen name="BookMark" component={BookMarkScreen} />
             <Stack.Screen name="Home" component={NonMemberHomeScreen} />
             <Stack.Screen name="PolicyDetail" component={PolicyDetailScreen} />
+            <Stack.Screen name="QnA" component={QnAScreen} />
+            <Stack.Screen name="QnADetail" component={QnADetailScreen} />
+            <Stack.Screen name="QnAWrite" component={QnAWriteScreen} />
           </Stack.Group>
         )}
       </Stack.Navigator>

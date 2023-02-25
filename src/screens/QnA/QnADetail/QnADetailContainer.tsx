@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useGetQuestion, usePostAnswer } from '@/apis/question';
-import { MainStackScreenProps } from '@/screens/Stack/MainStack';
+import { useAppSelector } from '@/hooks/redux';
+import { RootStackScreenProps } from '@/screens/Stack/Stack';
 import { useRoute } from '@react-navigation/native';
 import { QnADetailPresenter } from './QnADetailPresenter';
 
-type Route = MainStackScreenProps<'QnADetail'>['route'];
+type Route = RootStackScreenProps<'QnADetail'>['route'];
 
 export type LikeType = 'like' | 'unLike';
 
@@ -13,7 +14,8 @@ export const QnADetailContainer = () => {
 
   const { questionId } = route.params;
   const { question } = useGetQuestion(questionId);
-  const { mutateAsync } = usePostAnswer(questionId);
+  const { mutateAsync: postAnswer } = usePostAnswer(questionId);
+  const { member } = useAppSelector(selector => selector.auth);
 
   const [answer, setAnswer] = useState('');
 
@@ -30,7 +32,7 @@ export const QnADetailContainer = () => {
       return;
     }
 
-    await mutateAsync(
+    await postAnswer(
       { questionId, answer },
       {
         onSuccess: () => {
@@ -45,6 +47,7 @@ export const QnADetailContainer = () => {
   }
 
   const props = {
+    member,
     question,
     answer,
     onPressLike,

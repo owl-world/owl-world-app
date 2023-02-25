@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { usePostQuestion } from '@/apis/question';
 import { useAppSelector } from '@/hooks/redux';
-import { MainStackScreenProps } from '@/screens/Stack/MainStack';
+import { RootStackScreenProps } from '@/screens/Stack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { QnAWritePresenter } from './QnAWritePresenter';
 
-type Navigation = MainStackScreenProps<'QnAWrite'>['navigation'];
-type Route = MainStackScreenProps<'QnAWrite'>['route'];
+type Navigation = RootStackScreenProps<'QnAWrite'>['navigation'];
+type Route = RootStackScreenProps<'QnAWrite'>['route'];
 
 export const QnAWriteContainer = () => {
   const navigation = useNavigation<Navigation>();

@@ -5,12 +5,14 @@ import { Header } from '@/components/Header';
 import { CommentInput } from '@/components/Input/CommentInput';
 import { AnswerRow, QuestionRow } from '@/components/Question';
 import { SplitRow } from '@/components/SplitSpace';
+import { TokenBody } from '@/types/auth';
 import { Question } from '@/types/qna';
 import { LikeType } from './QnADetailContainer';
 
 const { height } = Dimensions.get('screen');
 
 type Props = {
+  member: TokenBody;
   question: Question;
   answer: string;
   onPressLike: (type: LikeType) => void;
@@ -18,7 +20,7 @@ type Props = {
   onPressEnter: () => void;
 };
 
-export const QnADetailPresenter = ({ question, answer, onPressLike, onChange, onPressEnter }: Props) => {
+export const QnADetailPresenter = ({ member, question, answer, onPressLike, onChange, onPressEnter }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title="질문답변 게시판" subTitle="인하대" />
@@ -26,7 +28,7 @@ export const QnADetailPresenter = ({ question, answer, onPressLike, onChange, on
       <SplitRow height={30} />
 
       <ScrollView style={styles.fullScreen}>
-        <QuestionRow question={question} />
+        <QuestionRow question={question} isMember={!!question.member} />
 
         <SplitRow height={30} />
 
@@ -35,14 +37,16 @@ export const QnADetailPresenter = ({ question, answer, onPressLike, onChange, on
         })}
       </ScrollView>
 
-      <View style={styles.inputContainer}>
-        <CommentInput
-          placeholder="예비 신입생이 답변을 기다리고 있어요!"
-          value={answer}
-          onChange={onChange}
-          onPressEnter={onPressEnter}
-        />
-      </View>
+      {member && (
+        <View style={styles.inputContainer}>
+          <CommentInput
+            placeholder="예비 신입생이 답변을 기다리고 있어요!"
+            value={answer}
+            onChange={onChange}
+            onPressEnter={onPressEnter}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

@@ -15,9 +15,10 @@ type Props = {
   universityMajor: UniversityMajor[];
   reviews?: ReviewType[];
   scores?: number[];
+  onPressQnA: (universityId: number, universityName: string) => void;
 };
 
-export const PolicyDetailPresenter = ({ universityMajor, reviews, scores }: Props) => {
+export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, onPressQnA }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title="제도/지원" subTitle="올빼미광장" />
@@ -29,7 +30,7 @@ export const PolicyDetailPresenter = ({ universityMajor, reviews, scores }: Prop
           <ScrollView style={styles.mainScrollContainer} showsVerticalScrollIndicator={true}>
             <SplitRow height={25} />
 
-            <UniversityRow university={universityMajor[0].university} isDetail />
+            <UniversityRow university={universityMajor[0].university} isDetail onPressQnA={onPressQnA} />
 
             <SplitRow height={25} />
 
