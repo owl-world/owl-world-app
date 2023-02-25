@@ -5,20 +5,29 @@ import { Star } from './Star';
 type Props = {
   count?: number;
   rating: number;
-  onChange: (rating: number) => void;
+  size: number;
+  onChange?: (rating: number) => void;
 };
 
 const DEFAULT_COUNT = 5;
 
-export const Stars = ({ count = DEFAULT_COUNT, rating, onChange }: Props) => {
+export const Stars = ({ count = DEFAULT_COUNT, rating, size, onChange }: Props) => {
+  const onChangeStar = (idx: number) => {
+    if (!onChange) {
+      return;
+    }
+
+    onChange(idx);
+  };
+
   return (
     <React.Fragment>
       {Array(count)
         .fill(0)
         .map((_, idx) => {
           return (
-            <TouchableOpacity onPress={() => onChange(idx + 1)} key={idx}>
-              {idx < rating ? <Star isFill={true} /> : <Star />}
+            <TouchableOpacity onPress={() => onChangeStar(idx + 1)} key={idx} disabled={!onChange}>
+              {idx < rating ? <Star size={size} isFill={true} /> : <Star size={size} />}
             </TouchableOpacity>
           );
         })}

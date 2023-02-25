@@ -16,7 +16,7 @@ export const Review = ({ rating, review, onChange }: Props) => {
       <Text style={styles.text}>{review}</Text>
       <SplitRow height={11} />
       <View style={styles.starContainer}>
-        <Stars rating={rating} onChange={onChange} />
+        <Stars rating={rating} size={35} onChange={onChange} />
       </View>
       <SplitRow height={5} />
     </View>

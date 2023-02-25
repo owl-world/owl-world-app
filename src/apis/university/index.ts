@@ -1,0 +1,1 @@
+export { useGetUniversities } from './useGetUniversities';

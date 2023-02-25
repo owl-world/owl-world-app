@@ -1,0 +1,1 @@
+export { UniversityRow } from './UniversityRow';

@@ -3,6 +3,7 @@ import { useAppSelector } from '@/hooks/redux';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeScreen } from '../Home';
+import { PolicyScreen } from '../Policy';
 import { FreePostScreen } from '../Post/FreePost';
 import { FreePostDetailScreen } from '../Post/FreePost/FreePostDetail';
 import { FreePostWriteScreen } from '../Post/FreePost/FreePostWrite';
@@ -23,6 +24,7 @@ export type MainStackParamList = {
   QnADetail: {
     questionId: number;
   };
+  Policy: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -44,6 +46,7 @@ export const MainStack = () => {
       <Stack.Screen name="FreePostWrite" component={FreePostWriteScreen} />
       <Stack.Screen name="QnA" component={QnAScreen} />
       <Stack.Screen name="QnADetail" component={QnADetailScreen} />
+      <Stack.Screen name="Policy" component={PolicyScreen} />
     </Stack.Navigator>
   );
 };
