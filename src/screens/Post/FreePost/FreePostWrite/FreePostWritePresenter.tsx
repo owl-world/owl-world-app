@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { WriteButton } from '@/components/Button';
@@ -10,10 +10,8 @@ import { Text } from '@/components/Text';
 import { TokenBody } from '@/types/auth';
 import { PostRequest } from '@/types/post';
 
-const { height } = Dimensions.get('screen');
-
 type Props = {
-  member: TokenBody;
+  member?: TokenBody;
   onChange: (key: keyof PostRequest, value: string) => void;
   onPressWrite: () => void;
 };
@@ -27,10 +25,10 @@ export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props
 
       <View style={[styles.titleContainer, styles.row]}>
         <View style={[styles.row, styles.leftTitle]}>
-          <SvgCssUri style={styles.universityLogo} uri={member.universityLogo} />
+          <SvgCssUri style={styles.universityLogo} uri={member?.universityLogo || null} />
           <SplitColumn width={5} />
           <View>
-            <Text style={styles.ninckname}>{member.nickname}</Text>
+            <Text style={styles.ninckname}>{member?.nickname}</Text>
             <Text style={styles.createdAt}>{format(new Date(), 'MM/dd hh:mm')}</Text>
           </View>
         </View>

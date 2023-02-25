@@ -7,27 +7,34 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 type State = {
   accessToken: string;
   member?: TokenBody;
+  isStandingWater?: boolean;
 };
 
 const USER_STORAGE_KEY = 'user';
+const IS_STANDING_WATER_KEY = 'isStandingWater';
 
 export const initAuth = createAsyncThunk('auth/initAuth', async () => {
   const user = await EncryptedStorage.getItem(USER_STORAGE_KEY);
+  const isStandingWater = await EncryptedStorage.getItem(IS_STANDING_WATER_KEY);
 
   if (!user) {
     return;
   }
 
-  return JSON.parse(user);
+  return { ...JSON.parse(user), isStandingWater: Boolean(isStandingWater) };
 });
 
-const setAuthentication = (state: State) => {
-  storeToken(state);
+const setAuthentication = async (state: State) => {
   setHeader(state.accessToken);
+  storeToken(state);
+};
+
+export const setStandingWater = async (bool: boolean) => {
+  EncryptedStorage.setItem(IS_STANDING_WATER_KEY, `${bool}`);
 };
 
 const storeToken = ({ accessToken, member }: State) => {
-  EncryptedStorage.setItem(
+  return EncryptedStorage.setItem(
     USER_STORAGE_KEY,
     JSON.stringify({
       accessToken,
@@ -38,6 +45,7 @@ const storeToken = ({ accessToken, member }: State) => {
 
 const initialState: State = {
   accessToken: '',
+  isStandingWater: false,
 };
 
 const authSlice = createSlice({
@@ -54,11 +62,17 @@ const authSlice = createSlice({
       state.member = decodedToken;
     },
     onLogout(state) {
-      EncryptedStorage.clear();
+      EncryptedStorage.removeItem(USER_STORAGE_KEY);
+      // EncryptedStorage.removeItem(IS_STANDING_WATER_KEY);
       deleteHeader();
 
       state.accessToken = '';
       state.member = undefined;
+      state.isStandingWater = false;
+    },
+    updateStandingWater(state) {
+      setStandingWater(true);
+      state.isStandingWater = true;
     },
   },
   extraReducers: builder => {
@@ -75,5 +89,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { onLogin, onLogout } = authSlice.actions;
+export const { onLogin, onLogout, updateStandingWater } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector } from '@/hooks/redux';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeScreen } from '../Home';
@@ -32,9 +33,11 @@ export type MainStackScreenProps<T extends keyof MainStackParamList> = Composite
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
 export const MainStack = () => {
+  const { isStandingWater } = useAppSelector(selector => selector.auth);
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Review" component={ReviewScreen} />
+      {!isStandingWater && <Stack.Screen name="Review" component={ReviewScreen} />}
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="FreePost" component={FreePostScreen} />
       <Stack.Screen name="FreePostDetail" component={FreePostDetailScreen} />

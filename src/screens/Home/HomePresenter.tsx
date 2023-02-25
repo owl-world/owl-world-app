@@ -19,7 +19,7 @@ type MenuType = {
 };
 
 type Props = {
-  member: TokenBody;
+  member?: TokenBody;
   posts?: Post[];
   menus: MenuType[];
   onPressSignOut: () => void;
@@ -32,13 +32,13 @@ export const HomePresenter = ({ member, posts, menus, onPressSignOut }: Props) =
         <SplitRow height={height * 0.1} />
 
         <View style={styles.profileContainer}>
-          <SvgCssUri style={styles.logo} uri={member.universityLogo} />
+          <SvgCssUri style={styles.logo} uri={member?.universityLogo || null} />
           <SplitColumn width={7} />
           <View style={styles.proflieSuffixContainer}>
-            <Text style={styles.nickname}>{member.nickname}</Text>
+            <Text style={styles.nickname}>{member?.nickname}</Text>
             <SplitRow height={2} />
             <Text style={styles.department}>
-              {member.universityName} {member.majorName}
+              {member?.universityName} {member?.majorName}
             </Text>
           </View>
         </View>
