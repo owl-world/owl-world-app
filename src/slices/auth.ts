@@ -6,7 +6,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 type State = {
   accessToken: string;
-  member: TokenBody | null;
+  member?: TokenBody;
 };
 
 const USER_STORAGE_KEY = 'user';
@@ -27,7 +27,7 @@ const setAuthentication = (state: State) => {
 };
 
 const storeToken = ({ accessToken, member }: State) => {
-  return EncryptedStorage.setItem(
+  EncryptedStorage.setItem(
     USER_STORAGE_KEY,
     JSON.stringify({
       accessToken,
@@ -38,7 +38,6 @@ const storeToken = ({ accessToken, member }: State) => {
 
 const initialState: State = {
   accessToken: '',
-  member: null,
 };
 
 const authSlice = createSlice({
@@ -49,7 +48,7 @@ const authSlice = createSlice({
       const accessToken = action.payload;
       const decodedToken: TokenBody = jwtDecode(accessToken);
 
-      setAuthentication({ accessToken, member: accessToken });
+      setAuthentication({ accessToken, member: decodedToken });
 
       state.accessToken = accessToken;
       state.member = decodedToken;
@@ -59,7 +58,7 @@ const authSlice = createSlice({
       deleteHeader();
 
       state.accessToken = '';
-      state.member = null;
+      state.member = undefined;
     },
   },
   extraReducers: builder => {

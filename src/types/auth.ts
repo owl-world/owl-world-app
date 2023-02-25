@@ -12,6 +12,6 @@ export type TokenBody = {
   universityId: number;
   universityName: string;
   universityLogo: string;
-  iat: number;
-  exp: number;
+  iat?: number;
+  exp?: number;
 };
