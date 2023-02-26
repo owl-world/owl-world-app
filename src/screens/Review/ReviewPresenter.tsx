@@ -38,6 +38,7 @@ export const ReviewPresenter = ({ reviews, member, findRatingByReviewId, onChang
       {reviews.map((review, idx) => (
         <Review
           key={review.id}
+          isCenter
           rating={findRatingByReviewId(idx)}
           review={review.question}
           onChange={rating => onChange(idx, rating)}

@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 35,
-    gap: width * 0.12,
+    gap: width * 0.125,
   },
   universityName: {
     left: -5,

@@ -8,15 +8,16 @@ type Props = {
   review: string;
   rating: number;
   size?: number;
+  isCenter?: boolean;
   onChange?: (rating: number) => void;
 };
 
-export const Review = ({ rating, review, size = 35, onChange }: Props) => {
+export const Review = ({ rating, review, isCenter, size = 35, onChange }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{review}</Text>
+      <Text style={[styles.text, isCenter && styles.centerText]}>{review}</Text>
       <SplitRow height={11} />
-      <View style={styles.starContainer}>
+      <View style={[styles.starContainer, isCenter && styles.cetnerContainer]}>
         <Stars rating={rating} size={size} onChange={onChange} />
       </View>
       <SplitRow height={5} />
@@ -31,10 +32,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     lineHeight: 15,
-    // textAlign: 'center',
   },
   starContainer: {
     flexDirection: 'row',
-    // justifyContent: 'center',
+  },
+  cetnerContainer: {
+    justifyContent: 'center',
+  },
+  centerText: {
+    textAlign: 'center',
   },
 });
