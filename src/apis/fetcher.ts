@@ -15,16 +15,18 @@ export const setHeader = (accessToken: string) => {
 };
 
 export const deleteHeader = () => {
-  fetcher.defaults.headers.common.Authorization = '';
+  fetcher.defaults.headers.common.Authorization = null;
 };
 
 fetcher.interceptors.request.use(
   request => {
     // 응답 데이터를 가공
     // ...
-    console.log(`[${request.method}][Axios request url]`);
-    console.log(request.url);
-    // console.log(request.data);
+    console.log(`[${request.method}][Axios request url] : ${request.url}`);
+
+    if (request.method === 'post') {
+      console.log(request.data);
+    }
     // // consxole.log('\n');
     // console.log(request.headers);
     // console.log('yo sb?');
@@ -44,7 +46,7 @@ fetcher.interceptors.response.use(
   response => {
     // 응답 데이터를 가공
     // …
-    console.log(`[${response.status}][Axios response data]`);
+    // console.log(`[${response.status}][Axios response data]`);
     // console.log(JSON.stringify(response.data));
 
     if (!response.data.result) {
