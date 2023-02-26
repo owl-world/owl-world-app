@@ -23,7 +23,6 @@ export const HomeContainer = () => {
 
   useEffect(() => {
     naviation.addListener('focus', () => {
-      console.log(1);
       refetch();
     });
   }, [naviation, refetch]);

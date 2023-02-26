@@ -1,12 +1,14 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, SafeAreaView, StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { SvgCssUri } from 'react-native-svg';
+import { Dimensions, ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { LabelButton } from '@/components/Button';
+import { Container } from '@/components/Grid';
+import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { SearchInput } from '@/components/Input';
 import { Menu } from '@/components/Menu';
 import { PostRow } from '@/components/Post';
-import { SplitColumn, SplitRow } from '@/components/SplitSpace';
+import { Profile } from '@/components/Profile';
+import { SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { TokenBody } from '@/types/auth';
 import { Post } from '@/types/post';
@@ -39,21 +41,11 @@ export const HomePresenter = ({
   onPressSignOut,
 }: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.fullScreen}>
+    <SafreAreaFlexView>
+      <Container paddingHorizontal={20}>
         <SplitRow height={height * 0.1} />
 
-        <View style={styles.profileContainer}>
-          <SvgCssUri style={styles.logo} uri={member?.universityLogo || null} />
-          <SplitColumn width={7} />
-          <View style={styles.proflieSuffixContainer}>
-            <Text style={styles.nickname}>{member?.nickname}</Text>
-            <SplitRow height={2} />
-            <Text style={styles.department}>
-              {member?.universityName} {member?.majorName}
-            </Text>
-          </View>
-        </View>
+        {member && <Profile member={member} />}
 
         <SplitRow height={44} />
 
@@ -66,75 +58,45 @@ export const HomePresenter = ({
         <SplitRow height={37} />
 
         <View style={styles.postContainer}>
-          <Text style={styles.postTitle}>인기게시물</Text>
-
-          <SplitRow height={5} />
-
-          {posts &&
-            posts.map(post => {
-              return (
-                <TouchableWithoutFeedback key={post.id} onPress={() => onPressPost(post.id)}>
-                  <PostRow post={post} />
-                </TouchableWithoutFeedback>
-              );
-            })}
-
-          <SplitRow height={13} />
+          <FlatList
+            keyExtractor={item => item.id.toString()}
+            data={posts}
+            scrollEnabled={false}
+            ListHeaderComponent={<Text style={styles.postTitle}>인기게시물</Text>}
+            ListHeaderComponentStyle={styles.postHeader}
+            ListFooterComponent={<SplitRow height={13} />}
+            renderItem={({ item }) => <PostRow post={item} onPress={onPressPost} />}
+          />
         </View>
 
         <SplitRow height={44} />
 
-        <View style={styles.menuContainer}>
-          {menus.map(menu => (
-            <Menu key={menu.title} title={menu.title} source={menu.source} onPress={menu.onPress} />
-          ))}
-        </View>
+        <Container paddingHorizontal={25}>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.menuContainer}
+            data={menus}
+            renderItem={({ item }) => (
+              <Menu key={item.title} title={item.title} source={item.source} onPress={item.onPress} />
+            )}
+          />
+        </Container>
 
         <SplitRow height={60} />
 
         <LabelButton color="#8F8F8F" onPress={onPressSignOut}>
           로그아웃
         </LabelButton>
-      </View>
-    </SafeAreaView>
+      </Container>
+    </SafreAreaFlexView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  fullScreen: {
-    paddingHorizontal: 26,
-  },
-  majorLogo: {
-    width: 50,
-    height: 50,
-  },
-  nickname: {
-    color: '#000000',
-    fontSize: 20,
-    fontWeight: '700',
-    lineHeight: 24,
-  },
-  department: {
-    color: '#4A4A4A',
-    fontSize: 16,
-    fontWeight: '400',
-    lineHeight: 19,
-  },
-  profileContainer: {
-    flexDirection: 'row',
-  },
-  logo: {
-    width: 50,
-    height: 50,
-  },
-  proflieSuffixContainer: {},
   postContainer: {
     backgroundColor: '#FFFDF8',
     paddingVertical: 15,
-    paddingHorizontal: 26,
+    paddingHorizontal: 25,
     borderRadius: 15,
     shadowColor: 'rgb(0,0,0)',
     shadowOpacity: 0.1,
@@ -142,6 +104,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+  },
+  postHeader: {
+    paddingBottom: 5,
   },
   postTitle: {
     color: '#161616',

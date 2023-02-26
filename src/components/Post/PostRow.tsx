@@ -1,27 +1,29 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Post } from '@/types/post';
+import { InteractionButton } from '../Button/InteractionButton';
 import { SplitColumn } from '../SplitSpace';
 import { Text } from '../Text';
 
 type Props = {
   post: Post;
+  onPress: (postId: number) => void;
 };
 
-export const PostRow = ({ post }: Props) => {
+export const PostRow = ({ post, onPress }: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{post.title}</Text>
+    <TouchableWithoutFeedback style={styles.container} onPress={() => onPress(post.id)}>
+      <Text style={styles.text} numberOfLines={1}>
+        {post.title}
+      </Text>
+
       <View style={styles.interactionContainer}>
-        <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/filled_heart.png')} />
-        <SplitColumn width={1} />
-        <Text style={styles.interactionText}>{post.likeCount}</Text>
+        <InteractionButton type="like" count={post.likeCount} />
         <SplitColumn width={2} />
-        <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/comment.png')} />
-        <SplitColumn width={1} />
-        <Text style={styles.interactionText}>{post.commentCount}</Text>
+        <InteractionButton type="comment" count={post.commentCount} />
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -42,15 +44,5 @@ const styles = StyleSheet.create({
   interactionContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-  },
-  interactionIcon: {
-    width: 12,
-    height: 12,
-  },
-  interactionText: {
-    color: '#696969',
-    fontSize: 10,
-    fontWeight: '500',
-    lineHeight: 12,
   },
 });

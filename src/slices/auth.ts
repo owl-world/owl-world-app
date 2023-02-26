@@ -17,14 +17,10 @@ export const initAuth = createAsyncThunk('auth/initAuth', async () => {
   const user = await EncryptedStorage.getItem(USER_STORAGE_KEY);
   const isStandingWater = await EncryptedStorage.getItem(IS_STANDING_WATER_KEY);
 
-  console.log(isStandingWater);
-  console.log(user);
-
   if (!user) {
     return;
   }
 
-  console.log('end');
   return { ...JSON.parse(user), isStandingWater: Boolean(isStandingWater) };
 });
 
@@ -72,7 +68,7 @@ const authSlice = createSlice({
 
       state.accessToken = '';
       state.member = undefined;
-      state.isStandingWater = false;
+      // state.isStandingWater = false;
     },
     updateStandingWater(state) {
       setStandingWater(true);

@@ -52,6 +52,10 @@ export const SignUpContainer = () => {
     navigation.navigate('SignUpSuccess');
   };
 
+  const onPressSignIn = () => {
+    navigation.goBack();
+  };
+
   const onPressNonMemberSignIn = () => {
     navigation.navigate('BookMark');
   };
@@ -59,6 +63,7 @@ export const SignUpContainer = () => {
   const props = {
     onChange,
     onPressSignUp,
+    onPressSignIn,
     onPressNonMemberSignIn,
   };
 

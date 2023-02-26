@@ -29,7 +29,6 @@ export const BookMarkContainer = () => {
 
   const onPressConfirm = async () => {
     if (likes.length) {
-      console.log('isSEt');
       await EncryptedStorage.setItem('bookMark', JSON.stringify(likes));
     }
 

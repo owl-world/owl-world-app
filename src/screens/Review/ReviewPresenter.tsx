@@ -1,7 +1,9 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { SubmitButton } from '@/components/Button';
+import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { Review } from '@/components/Review';
 import { SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
@@ -18,7 +20,7 @@ type Props = {
 
 export const ReviewPresenter = ({ reviews, member, findRatingByReviewId, onChange, onPressSubmit }: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafreAreaFlexView style={styles.container}>
       <SplitRow height={50} />
 
       <SvgCssUri style={styles.logo} uri={member?.universityLogo || null} />
@@ -31,32 +33,36 @@ export const ReviewPresenter = ({ reviews, member, findRatingByReviewId, onChang
       </Text>
 
       <SplitRow height={20} />
+
       <Text style={styles.explanation}>우리 학교에 별점 리뷰를 달아주세요!{'\n'}예비 신입생들에게 참고가 됩니다.</Text>
 
       <SplitRow height={23} />
 
-      {reviews.map((review, idx) => (
-        <Review
-          key={review.id}
-          isCenter
-          rating={findRatingByReviewId(idx)}
-          review={review.question}
-          onChange={rating => onChange(idx, rating)}
-        />
-      ))}
+      <FlatList
+        keyExtractor={item => item.id.toString()}
+        data={reviews}
+        renderItem={({ item, index }) => (
+          <Review
+            key={item.id}
+            isCenter
+            rating={findRatingByReviewId(index)}
+            review={item.question}
+            onChange={rating => onChange(index, rating)}
+          />
+        )}
+      />
 
       <SplitRow height={40} />
 
       <SubmitButton style={styles.button} onPress={onPressSubmit}>
         확인
       </SubmitButton>
-    </SafeAreaView>
+    </SafreAreaFlexView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
   },
   logo: {
