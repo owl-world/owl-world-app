@@ -9,12 +9,11 @@ import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { nonMemberNickname } from '@/screens/BookMark/BookMarkPresenter';
 import { TokenBody } from '@/types/auth';
-import { PostRequest } from '@/types/post';
 
 type Props = {
   universityName: string;
   member?: TokenBody;
-  onChange: (key: keyof PostRequest, value: string) => void;
+  onChange: (value: string) => void;
   onPressWrite: () => void;
 };
 
@@ -53,7 +52,7 @@ export const QnAWritePresenter = ({ universityName, member, onChange, onPressWri
           placeholder="내용을 입력하세요."
           placeholderTextColor={'#363636'}
           multiline
-          onChangeText={text => onChange('content', text)}
+          onChangeText={text => onChange(text)}
         />
       </View>
     </SafeAreaView>

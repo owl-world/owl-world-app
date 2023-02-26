@@ -41,7 +41,7 @@ export const QuestionRow = ({ question, isMember, onPress }: Props) => {
 
       {onPress ? (
         <TouchableOpacity style={styles.contentContainer} onPress={() => onPress(question.id)}>
-          <Text style={styles.content}>{question.content}sss</Text>
+          <Text style={styles.content}>{question.content}</Text>
         </TouchableOpacity>
       ) : (
         <View style={styles.contentContainer}>
