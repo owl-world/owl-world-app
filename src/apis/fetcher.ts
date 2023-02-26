@@ -28,7 +28,6 @@ fetcher.interceptors.request.use(
       console.log(request.data);
     }
     // // consxole.log('\n');
-    // console.log(request.headers);
     // console.log('yo sb?');
 
     return request;

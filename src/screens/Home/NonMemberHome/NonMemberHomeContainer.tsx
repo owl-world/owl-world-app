@@ -28,10 +28,11 @@ export const NonMemberHomeContainer = () => {
     setSearchValue(value);
   };
 
-  const onPressUniversity = (universityId: number, code: string) => {
+  const onPressUniversity = (universityId: number, code: string, avg: number) => {
     naviation.navigate('PolicyDetail', {
       universityId,
       code,
+      avg,
     });
   };
 

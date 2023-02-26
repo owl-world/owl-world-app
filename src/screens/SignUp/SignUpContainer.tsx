@@ -53,7 +53,7 @@ export const SignUpContainer = () => {
   };
 
   const onPressNonMemberSignIn = () => {
-    navigation.navigate('Main');
+    navigation.navigate('BookMark');
   };
 
   const props = {

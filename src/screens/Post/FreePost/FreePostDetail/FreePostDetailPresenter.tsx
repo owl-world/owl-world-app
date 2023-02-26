@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { Comment } from '@/components/Comment';
@@ -21,67 +21,83 @@ type Props = {
 export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, onPressEnter }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="자유게시판" subTitle="올빼미광장" />
+      <KeyboardAvoidingView
+        enabled
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={12}
+      >
+        <Header title="자유게시판" subTitle="올빼미광장" />
 
-      <SplitRow height={30} />
+        <SplitRow height={30} />
 
-      <ScrollView style={styles.fullScreen}>
-        <View style={[styles.titleContainer, styles.row]}>
-          <SvgCssUri style={styles.universityLogo} uri={post.memberDto.universityMajorDto.university.logo} />
-          <SplitColumn width={5} />
-          <View>
-            <Text style={styles.ninckname}>{post?.memberDto.nickname}</Text>
-            <Text style={styles.createdAt}>{format(new Date(post?.memberDto.createdAt), 'MM/dd hh:mm')}</Text>
+        <ScrollView style={styles.fullScreen}>
+          <View style={[styles.titleContainer, styles.row]}>
+            <SvgCssUri style={styles.universityLogo} uri={post.memberDto.universityMajorDto.university.logo} />
+            <SplitColumn width={5} />
+            <View>
+              <Text style={styles.ninckname}>{post?.memberDto.nickname}</Text>
+              <Text style={styles.createdAt}>{format(new Date(post?.memberDto.createdAt), 'MM/dd hh:mm')}</Text>
+            </View>
           </View>
+
+          <SplitRow height={20} />
+
+          <View style={styles.mainContainer}>
+            <View style={styles.contenContainer}>
+              <Text style={styles.title}>{post.title}</Text>
+              <Text style={styles.content}>{post.content}</Text>
+            </View>
+
+            <SplitRow height={15} />
+
+            <View style={styles.row}>
+              <TouchableOpacity onPress={() => onPressLike(post.liked)}>
+                {post.liked ? (
+                  <Image
+                    style={styles.interactionIcon}
+                    resizeMode="cover"
+                    source={require('@/assets/images/filled_heart.png')}
+                  />
+                ) : (
+                  <Image
+                    style={styles.interactionIcon}
+                    resizeMode="cover"
+                    source={require('@/assets/images/heart.png')}
+                  />
+                )}
+              </TouchableOpacity>
+              <SplitColumn width={1} />
+              <Text style={styles.interactionText}>{post.likeCount}</Text>
+              <SplitColumn width={8} />
+              <Image
+                style={styles.interactionIcon}
+                resizeMode="cover"
+                source={require('@/assets/images/comment.png')}
+              />
+              <SplitColumn width={1} />
+              <Text style={styles.interactionText}>{post.commentCount}</Text>
+            </View>
+
+            <SplitRow height={18} />
+
+            <View>
+              {post.comments.map(_comment => {
+                return <Comment key={_comment.id} comment={_comment} />;
+              })}
+            </View>
+          </View>
+        </ScrollView>
+
+        <View style={styles.inputContainer}>
+          <CommentInput
+            placeholder="댓글을 입력하세요"
+            value={comment}
+            onChange={onChange}
+            onPressEnter={onPressEnter}
+          />
         </View>
-
-        <SplitRow height={20} />
-
-        <View style={styles.mainContainer}>
-          <View style={styles.contenContainer}>
-            <Text style={styles.title}>{post.title}</Text>
-            <Text style={styles.content}>{post.content}</Text>
-          </View>
-
-          <SplitRow height={15} />
-
-          <View style={styles.row}>
-            <TouchableOpacity onPress={() => onPressLike(post.liked)}>
-              {post.liked ? (
-                <Image
-                  style={styles.interactionIcon}
-                  resizeMode="cover"
-                  source={require('@/assets/images/filled_heart.png')}
-                />
-              ) : (
-                <Image
-                  style={styles.interactionIcon}
-                  resizeMode="cover"
-                  source={require('@/assets/images/heart.png')}
-                />
-              )}
-            </TouchableOpacity>
-            <SplitColumn width={1} />
-            <Text style={styles.interactionText}>{post.likeCount}</Text>
-            <SplitColumn width={8} />
-            <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/comment.png')} />
-            <SplitColumn width={1} />
-            <Text style={styles.interactionText}>{post.commentCount}</Text>
-          </View>
-
-          <SplitRow height={18} />
-
-          <View>
-            {post.comments.map(_comment => {
-              return <Comment key={_comment.id} comment={_comment} />;
-            })}
-          </View>
-        </View>
-      </ScrollView>
-
-      <View style={styles.inputContainer}>
-        <CommentInput placeholder="댓글을 입력하세요" value={comment} onChange={onChange} onPressEnter={onPressEnter} />
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

@@ -10,10 +10,11 @@ import { Text } from '../Text';
 type Props = {
   university: University;
   isDetail?: boolean;
+  rating?: number;
   onPressQnA?: (universityId: number, universityName: string) => void;
 };
 
-export const UniversityRow = ({ university, isDetail, onPressQnA }: Props) => {
+export const UniversityRow = ({ university, rating, isDetail, onPressQnA }: Props) => {
   return (
     <React.Fragment>
       <View style={[styles.row]}>
@@ -25,7 +26,7 @@ export const UniversityRow = ({ university, isDetail, onPressQnA }: Props) => {
           <View style={styles.row}>
             <Text style={styles.rate}>종합평점</Text>
             <SplitColumn width={5} />
-            <Stars rating={5} size={19} />
+            <Stars rating={rating || 0} size={19} />
           </View>
         </View>
         {isDetail && onPressQnA && (

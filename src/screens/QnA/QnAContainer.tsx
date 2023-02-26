@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useGetQuestions } from '@/apis/question';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { MainStackScreenProps } from '../Stack/MainStack';
+import { RootStackScreenProps } from '../Stack/Stack';
 import { QnAPresenter } from './QnAPresenter';
 
-type Navigation = MainStackScreenProps<'QnA'>['navigation'];
-type Route = MainStackScreenProps<'QnA'>['route'];
+type Navigation = RootStackScreenProps<'QnA'>['navigation'];
+type Route = RootStackScreenProps<'QnA'>['route'];
 
 export const QnAContainer = () => {
   const navigation = useNavigation<Navigation>();
@@ -23,6 +23,7 @@ export const QnAContainer = () => {
   const onPressQuestion = (questionId: number) => {
     navigation.navigate('QnADetail', {
       questionId,
+      universityName,
     });
   };
 

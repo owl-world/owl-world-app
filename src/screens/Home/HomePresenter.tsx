@@ -23,11 +23,21 @@ type Props = {
   member?: TokenBody;
   posts?: Post[];
   menus: MenuType[];
+  onChnage: (value: string) => void;
+  onPressSearch: () => void;
   onPressPost: (postId: number) => void;
   onPressSignOut: () => void;
 };
 
-export const HomePresenter = ({ member, posts, menus, onPressPost, onPressSignOut }: Props) => {
+export const HomePresenter = ({
+  member,
+  posts,
+  menus,
+  onChnage,
+  onPressSearch,
+  onPressPost,
+  onPressSignOut,
+}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.fullScreen}>
@@ -47,7 +57,11 @@ export const HomePresenter = ({ member, posts, menus, onPressPost, onPressSignOu
 
         <SplitRow height={44} />
 
-        <SearchInput placeholder="검색어를 입력해주세요." />
+        <SearchInput
+          placeholder="검색어를 입력해주세요."
+          onChangeText={text => onChnage(text)}
+          onPressSearch={onPressSearch}
+        />
 
         <SplitRow height={37} />
 

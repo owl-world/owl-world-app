@@ -2,11 +2,15 @@ import React from 'react';
 import { Image, StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const SearchInput = ({ ...rest }: TextInputProps) => {
+type Props = TextInputProps & {
+  onPressSearch: () => void;
+};
+
+export const SearchInput = ({ onPressSearch, ...rest }: Props) => {
   return (
     <View style={styles.container}>
       <TextInput placeholderTextColor={'#7D7D7D'} autoCapitalize="none" {...rest} style={[styles.input, rest.style]} />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPressSearch}>
         <Image style={styles.icon} resizeMode="cover" source={require('@/assets/images/search.png')} />
       </TouchableOpacity>
     </View>

@@ -6,12 +6,12 @@ import { Header } from '@/components/Header';
 import { SearchInput } from '@/components/Input';
 import { SplitRow } from '@/components/SplitSpace';
 import { UniversityRow } from '@/components/University';
-import { University } from '@/types/university';
+import { BookMark } from '@/types/review';
 
 type Props = {
-  universities?: University[];
+  universities?: BookMark[];
   onChange: (value: string) => void;
-  onPressUniversity: (universityId: number, code: string) => void;
+  onPressUniversity: (universityId: number, code: string, avg: number) => void;
 };
 
 const Spacer = () => <SplitRow height={10} />;
@@ -28,7 +28,7 @@ export const PolicyPresenter = ({ universities, onChange, onPressUniversity }: P
       <SplitRow height={30} />
 
       <FlatList
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item.universityDto.id.toString()}
         contentContainerStyle={styles.mainContainer}
         data={universities}
         ListHeaderComponent={
@@ -39,9 +39,12 @@ export const PolicyPresenter = ({ universities, onChange, onPressUniversity }: P
         }
         ItemSeparatorComponent={Spacer}
         renderItem={({ item }) => (
-          <React.Fragment key={item.name}>
-            <TouchableOpacity style={styles.universityContainer} onPress={() => onPressUniversity(item.id, item.code)}>
-              <UniversityRow university={item} />
+          <React.Fragment key={item.universityDto.name}>
+            <TouchableOpacity
+              style={styles.universityContainer}
+              onPress={() => onPressUniversity(item.universityDto.id, item.universityDto.code, item.avg)}
+            >
+              <UniversityRow university={item.universityDto} rating={item.avg} />
             </TouchableOpacity>
           </React.Fragment>
         )}

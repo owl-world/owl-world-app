@@ -2,6 +2,7 @@ import React from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Header } from '@/components/Header';
 import { SearchInput } from '@/components/Input';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
@@ -14,7 +15,7 @@ const { height } = Dimensions.get('screen');
 type Props = {
   bookmarks: BookMark[];
   onChnage: (value: string) => void;
-  onPressUniversity: (universityId: number, code: string) => void;
+  onPressUniversity: (universityId: number, code: string, avg: number) => void;
 };
 
 export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity }: Props) => {
@@ -22,8 +23,11 @@ export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity 
   return (
     <ScrollView style={styles.container}>
       <SplitRow height={top} />
+
+      <Header title=" " subTitle=" " />
+
       <View style={styles.fullScreen}>
-        <SplitRow height={height * 0.1} />
+        <SplitRow height={height * 0.07} />
 
         <View style={styles.profileContainer}>
           <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
@@ -57,9 +61,11 @@ export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity 
               <React.Fragment key={idx}>
                 <TouchableOpacity
                   style={styles.universityContainer}
-                  onPress={() => onPressUniversity(bookmark.universityDto.id, bookmark.universityDto.code)}
+                  onPress={() =>
+                    onPressUniversity(bookmark.universityDto.id, bookmark.universityDto.code, bookmark.avg)
+                  }
                 >
-                  <UniversityRow university={bookmark.universityDto} />
+                  <UniversityRow university={bookmark.universityDto} rating={bookmark.avg} />
                 </TouchableOpacity>
                 <SplitRow height={10} />
               </React.Fragment>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetPopularPosts } from '@/apis/post';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { onLogout } from '@/slices/auth';
@@ -17,7 +17,30 @@ export const HomeContainer = () => {
   const naviation = useNavigation<Navigation>();
 
   const { member } = useAppSelector(selector => selector.auth);
-  const { posts } = useGetPopularPosts();
+  const { posts, refetch } = useGetPopularPosts();
+
+  const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    naviation.addListener('focus', () => {
+      console.log(1);
+      refetch();
+    });
+  }, [naviation, refetch]);
+
+  const onChnage = (value: string) => {
+    setSearchValue(value);
+  };
+
+  const onPressSearch = () => {
+    if (!searchValue.trim()) {
+      return;
+    }
+
+    naviation.navigate('Search', {
+      searchValue,
+    });
+  };
 
   const menus = [
     {
@@ -70,6 +93,8 @@ export const HomeContainer = () => {
     member,
     posts,
     menus,
+    onChnage,
+    onPressSearch,
     onPressPost,
     onPressSignOut,
   };

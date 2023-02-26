@@ -20,7 +20,7 @@ export const QuestionRow = ({ question, isMember, onPress }: Props) => {
       <View style={[styles.row, styles.spaceBetween]}>
         <View style={styles.row}>
           {isMember ? (
-            <SvgCssUri style={styles.logo} uri={question.member.universityMajorDto.university.logo} />
+            <SvgCssUri style={styles.logo} uri={question.member.universityMajorDto.university.logo || null} />
           ) : (
             <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
           )}

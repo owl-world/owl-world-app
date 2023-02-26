@@ -11,7 +11,7 @@ type Route = RootStackScreenProps<'QnADetail'>['route'];
 export const QnADetailContainer = () => {
   const route = useRoute<Route>();
 
-  const { questionId } = route.params;
+  const { questionId, universityName } = route.params;
   const { member } = useAppSelector(selector => selector.auth);
   const { question, refetch: refetchQuestion } = useGetQuestion(questionId);
 
@@ -71,6 +71,7 @@ export const QnADetailContainer = () => {
     member,
     question,
     answer,
+    universityName,
     onPressLike,
     onChange,
     onPressAccept,

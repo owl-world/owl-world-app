@@ -8,17 +8,18 @@ import { Review } from '@/components/Review';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { UniversityRow } from '@/components/University';
-import { Review as ReviewType } from '@/types/review';
+import { Review as ReviewType, Score } from '@/types/review';
 import { UniversityMajor } from '@/types/university';
 
 type Props = {
   universityMajor: UniversityMajor[];
   reviews?: ReviewType[];
-  scores?: number[];
+  scores?: Score;
+  avg: number;
   onPressQnA: (universityId: number, universityName: string) => void;
 };
 
-export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, onPressQnA }: Props) => {
+export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, avg, onPressQnA }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title="제도/지원" subTitle="올빼미광장" />
@@ -30,7 +31,7 @@ export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, onPres
           <ScrollView style={styles.mainScrollContainer} showsVerticalScrollIndicator={true}>
             <SplitRow height={25} />
 
-            <UniversityRow university={universityMajor[0].university} isDetail onPressQnA={onPressQnA} />
+            <UniversityRow university={universityMajor[0].university} isDetail onPressQnA={onPressQnA} rating={avg} />
 
             <SplitRow height={25} />
 
@@ -104,7 +105,12 @@ export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, onPres
 
             {reviews &&
               reviews.map((review, idx) => (
-                <Review key={review.id} size={21} rating={scores ? scores[idx] : 0} review={review.question} />
+                <Review
+                  key={review.id}
+                  size={21}
+                  rating={scores ? scores.totalScores[idx] : 0}
+                  review={review.question}
+                />
               ))}
           </ScrollView>
         </View>

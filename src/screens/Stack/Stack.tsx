@@ -8,6 +8,7 @@ import { PolicyDetailScreen } from '../Policy/PolicyDetail';
 import { QnAScreen } from '../QnA';
 import { QnADetailScreen } from '../QnA/QnADetail';
 import { QnAWriteScreen } from '../QnA/QnAWrite';
+import { SearchScreen } from '../Search';
 import { SignInScreen } from '../SignIn';
 import { SignUpScreen } from '../SignUp';
 import { SignUpSuccessScreen } from '../SignUp/SignUpSuccess';
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   PolicyDetail: {
     universityId: number;
     code: string;
+    avg: number;
   };
   QnA: {
     universityId: number;
@@ -30,10 +32,14 @@ export type RootStackParamList = {
   };
   QnADetail: {
     questionId: number;
+    universityName: string;
   };
   QnAWrite: {
     universityId: number;
     universityName: string;
+  };
+  Search: {
+    searchValue: string;
   };
 };
 
@@ -74,6 +80,7 @@ export const RootNavigation = () => {
           <Stack.Screen name="QnA" component={QnAScreen} />
           <Stack.Screen name="QnADetail" component={QnADetailScreen} />
           <Stack.Screen name="QnAWrite" component={QnAWriteScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

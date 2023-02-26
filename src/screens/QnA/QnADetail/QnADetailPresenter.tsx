@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Header } from '@/components/Header';
 import { CommentInput } from '@/components/Input/CommentInput';
@@ -12,6 +12,7 @@ type Props = {
   member?: TokenBody;
   question: Question;
   answer: string;
+  universityName: string;
   onPressLike: (liked: boolean, answerId: number) => void;
   onChange: (value: string) => void;
   onPressAccept: (answerId: number) => void;
@@ -22,6 +23,7 @@ export const QnADetailPresenter = ({
   member,
   question,
   answer,
+  universityName,
   onPressLike,
   onPressAccept,
   onChange,
@@ -29,38 +31,45 @@ export const QnADetailPresenter = ({
 }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="질문답변 게시판" subTitle="인하대" />
-
-      <SplitRow height={30} />
-
-      <ScrollView style={styles.fullScreen}>
-        <QuestionRow question={question} isMember={!!question.member} />
+      <KeyboardAvoidingView
+        enabled
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={12}
+      >
+        <Header title="질문답변 게시판" subTitle={universityName} />
 
         <SplitRow height={30} />
 
-        {question.answers.map(_answer => {
-          return (
-            <AnswerRow
-              key={_answer.id}
-              answer={_answer}
-              isOwner={_answer.member.id === member?.memberId}
-              onPressLike={onPressLike}
-              onPressAccept={onPressAccept}
-            />
-          );
-        })}
-      </ScrollView>
+        <ScrollView style={styles.fullScreen}>
+          <QuestionRow question={question} isMember={!!question.member} />
 
-      {member && (
-        <View style={styles.inputContainer}>
-          <CommentInput
-            placeholder="예비 신입생이 답변을 기다리고 있어요!"
-            value={answer}
-            onChange={onChange}
-            onPressEnter={onPressEnter}
-          />
-        </View>
-      )}
+          <SplitRow height={30} />
+
+          {question.answers.map(_answer => {
+            return (
+              <AnswerRow
+                key={_answer.id}
+                answer={_answer}
+                isOwner={_answer.member.id === member?.memberId}
+                onPressLike={onPressLike}
+                onPressAccept={onPressAccept}
+              />
+            );
+          })}
+        </ScrollView>
+
+        {member && (
+          <View style={styles.inputContainer}>
+            <CommentInput
+              placeholder="답변을 기다리고 있어요!"
+              value={answer}
+              onChange={onChange}
+              onPressEnter={onPressEnter}
+            />
+          </View>
+        )}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

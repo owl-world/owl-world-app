@@ -12,7 +12,7 @@ export const PolicyDetailContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const { universityId, code } = route.params;
+  const { universityId, code, avg } = route.params;
   const { universityMajor } = useGetUniversity(code);
   const { scores } = useGetReviewScores(universityId);
 
@@ -26,13 +26,14 @@ export const PolicyDetailContainer = () => {
   };
 
   if (!universityMajor) {
-    return;
+    return null;
   }
 
   const props = {
     universityMajor,
     reviews,
     scores,
+    avg,
     onPressQnA,
   };
 

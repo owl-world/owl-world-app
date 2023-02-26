@@ -11,7 +11,7 @@ type Props = {
 export const PostRow = ({ post }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{post.content}</Text>
+      <Text style={styles.text}>{post.title}</Text>
       <View style={styles.interactionContainer}>
         <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/filled_heart.png')} />
         <SplitColumn width={1} />

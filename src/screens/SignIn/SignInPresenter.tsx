@@ -8,13 +8,14 @@ import { SignInEntity } from '@/types/auth';
 const { height } = Dimensions.get('screen');
 
 type Props = {
+  form: any;
   onChange: (key: keyof SignInEntity, value: string) => void;
   onPressSignIn: () => void;
   onPressSignUp: () => void;
   onPressNonMemberSignIn: () => void;
 };
 
-export const SignInPresenter = ({ onChange, onPressSignIn, onPressSignUp, onPressNonMemberSignIn }: Props) => {
+export const SignInPresenter = ({ form, onChange, onPressSignIn, onPressSignUp, onPressNonMemberSignIn }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <SplitRow height={height * 0.2} />
@@ -24,9 +25,14 @@ export const SignInPresenter = ({ onChange, onPressSignIn, onPressSignUp, onPres
       <SplitRow height={height * 0.04} />
 
       <View style={styles.formContainer}>
-        <SignInput placeholder="학교 이메일" onChangeText={text => onChange('email', text)} />
+        <SignInput placeholder="학교 이메일" onChangeText={text => onChange('email', text)} value={form.email} />
         <SplitRow height={20} />
-        <SignInput placeholder="비밀번호" secureTextEntry={true} onChangeText={text => onChange('password', text)} />
+        <SignInput
+          placeholder="비밀번호"
+          secureTextEntry={true}
+          onChangeText={text => onChange('password', text)}
+          value={form.password}
+        />
 
         <SplitRow height={30} />
 

@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
 import { SubmitButton } from '@/components/Button';
+import { Header } from '@/components/Header';
 import { Label } from '@/components/Label';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
@@ -19,7 +20,7 @@ type Props = {
   onPressConfirm: () => void;
 };
 
-export const nonMemberNickname = '아기올뺴미17';
+export const nonMemberNickname = '아기올빼미17';
 
 export const BookMarkPresenter = ({ universities, likes, onPressLike, onPressConfirm }: Props) => {
   const { top } = useSafeAreaInsets();
@@ -27,8 +28,11 @@ export const BookMarkPresenter = ({ universities, likes, onPressLike, onPressCon
   return (
     <View style={styles.container}>
       <SplitRow height={top} />
+
+      <Header title=" " subTitle=" " />
+
       <ScrollView>
-        <SplitRow height={50} />
+        <SplitRow height={10} />
 
         <View style={styles.nicknameContainer}>
           <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/mascot.png')} />

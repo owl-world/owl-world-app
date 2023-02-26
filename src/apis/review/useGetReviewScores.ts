@@ -1,8 +1,9 @@
 import { useQuery } from 'react-query';
+import { Score } from '@/types/review';
 import { fetcher } from '../fetcher';
 
 type GetReviewScoresResponse = {
-  data: number[];
+  data: Score;
 };
 
 const getReviewScores = async (universityId: number) => {
