@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePostLike, usePostUnLike } from '@/apis/like';
-import { useGetQuestion, usePostAnswer } from '@/apis/question';
+import { useGetQuestion, usePostAccept, usePostAnswer } from '@/apis/question';
 import { useAppSelector } from '@/hooks/redux';
 import { RootStackScreenProps } from '@/screens/Stack/Stack';
 import { useRoute } from '@react-navigation/native';
@@ -18,6 +18,7 @@ export const QnADetailContainer = () => {
   const { mutateAsync: like, isLoading: isPostLikeLoading } = usePostLike();
   const { mutateAsync: unLike, isLoading: isPostUnLikeLoading } = usePostUnLike();
   const { mutateAsync: postAnswer } = usePostAnswer(questionId);
+  const { mutateAsync: postAccept } = usePostAccept();
 
   const [answer, setAnswer] = useState('');
 
@@ -40,6 +41,11 @@ export const QnADetailContainer = () => {
 
   const onChange = (value: string) => {
     setAnswer(value);
+  };
+
+  const onPressAccept = async (answerId: number) => {
+    await postAccept(answerId);
+    refetchQuestion();
   };
 
   const onPressEnter = async () => {
@@ -67,6 +73,7 @@ export const QnADetailContainer = () => {
     answer,
     onPressLike,
     onChange,
+    onPressAccept,
     onPressEnter,
   };
 

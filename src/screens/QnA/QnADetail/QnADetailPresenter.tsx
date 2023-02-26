@@ -14,10 +14,19 @@ type Props = {
   answer: string;
   onPressLike: (liked: boolean, answerId: number) => void;
   onChange: (value: string) => void;
+  onPressAccept: (answerId: number) => void;
   onPressEnter: () => void;
 };
 
-export const QnADetailPresenter = ({ member, question, answer, onPressLike, onChange, onPressEnter }: Props) => {
+export const QnADetailPresenter = ({
+  member,
+  question,
+  answer,
+  onPressLike,
+  onPressAccept,
+  onChange,
+  onPressEnter,
+}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title="질문답변 게시판" subTitle="인하대" />
@@ -30,7 +39,15 @@ export const QnADetailPresenter = ({ member, question, answer, onPressLike, onCh
         <SplitRow height={30} />
 
         {question.answers.map(_answer => {
-          return <AnswerRow key={_answer.id} answer={_answer} onPressLike={onPressLike} />;
+          return (
+            <AnswerRow
+              key={_answer.id}
+              answer={_answer}
+              isOwner={_answer.member.id === member?.memberId}
+              onPressLike={onPressLike}
+              onPressAccept={onPressAccept}
+            />
+          );
         })}
       </ScrollView>
 

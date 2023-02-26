@@ -9,10 +9,12 @@ import { Text } from '../Text';
 
 type Props = {
   answer: Answer;
+  isOwner: boolean;
   onPressLike: (liked: boolean, answerId: number) => void;
+  onPressAccept: (answerId: number) => void;
 };
 
-export const AnswerRow = ({ answer, onPressLike }: Props) => {
+export const AnswerRow = ({ answer, isOwner, onPressLike, onPressAccept }: Props) => {
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.spaceBetween]}>
@@ -49,8 +51,17 @@ export const AnswerRow = ({ answer, onPressLike }: Props) => {
 
       <SplitRow height={9} />
 
-      <View style={styles.contentContainer}>
+      <View style={[styles.contentContainer, styles.row]}>
         <Text style={styles.content}>{answer.content}</Text>
+
+        {isOwner && (
+          <TouchableOpacity
+            style={answer.accepted ? styles.acceptedButton : styles.acceptButton}
+            onPress={() => onPressAccept(answer.id)}
+          >
+            <Text>채택</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       <SplitRow height={20} />
@@ -116,6 +127,7 @@ const styles = StyleSheet.create({
     },
   },
   content: {
+    flex: 1,
     color: '#363636',
     fontSize: 12,
     fontWeight: '500',
@@ -135,5 +147,25 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '500',
     lineHeight: 13,
+  },
+  acceptButton: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#FFE05C',
+    borderRadius: 7,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
+  },
+  acceptedButton: {
+    backgroundColor: '#FFE05C',
+    borderRadius: 7,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
+  },
+  acceptText: {
+    color: '000000',
+    fontSize: 11,
+    lineHeight: 20,
+    fontWeight: '500',
   },
 });
