@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
 import { WriteButton } from '@/components/Button';
 import { Header } from '@/components/Header';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export const QnAWritePresenter = ({ universityName, member, onChange, onPressWrite }: Props) => {
+  const { bottom } = useSafeAreaInsets();
   return (
     <SafeAreaView style={styles.container}>
       <Header title="질문답변 게시판" subTitle={universityName} />
@@ -48,13 +50,15 @@ export const QnAWritePresenter = ({ universityName, member, onChange, onPressWri
 
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.contentInpu}
+          style={styles.contentInput}
           placeholder="내용을 입력하세요."
           placeholderTextColor={'#363636'}
           multiline
           onChangeText={text => onChange(text)}
         />
       </View>
+
+      {!bottom && <SplitRow height={18} />}
     </SafeAreaView>
   );
 };
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 20,
   },
-  contentInpu: {
+  contentInput: {
     color: '#363636',
     fontSize: 14,
     fontWeight: '500',

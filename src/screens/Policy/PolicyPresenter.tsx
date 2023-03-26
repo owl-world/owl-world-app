@@ -25,15 +25,18 @@ export const PolicyPresenter = ({ universities, onChange, onPressUniversity }: P
 
       <Header title="제도/지원" subTitle="올빼미광장" />
 
-      <SplitRow height={30} />
-
       <FlatList
         keyExtractor={item => item.universityDto.id.toString()}
         contentContainerStyle={styles.mainContainer}
         data={universities}
         ListHeaderComponent={
           <React.Fragment>
-            <SearchInput placeholder="검색어를 입력해주세요." onChangeText={text => onChange(text)} />
+            <SplitRow height={30} />
+            <SearchInput
+              placeholder="검색어를 입력해주세요."
+              onChangeText={text => onChange(text)}
+              onPressSearch={() => null}
+            />
             <SplitRow height={10} />
           </React.Fragment>
         }
@@ -71,5 +74,6 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 4,
   },
 });

@@ -39,12 +39,11 @@ export const SignUpPresenter = ({ onChange, onPressSignUp, onPressSignIn, onPres
 
       <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
 
-      <SplitRow height={30} />
-
       <View>
         <FlatList
           keyExtractor={item => item.key}
           data={forms}
+          ListHeaderComponent={<SplitRow height={30} />}
           ItemSeparatorComponent={Spacer}
           contentContainerStyle={styles.forms}
           scrollEnabled={false}

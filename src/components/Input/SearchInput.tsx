@@ -20,6 +20,7 @@ export const SearchInput = ({ onPressSearch, ...rest }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 22,
     paddingHorizontal: 15,
     backgroundColor: '#FFFFFF',
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 4,
   },
   input: {
     fontSize: 16,

@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 4,
   },
   mainScrollContainer: {
     paddingHorizontal: 10,

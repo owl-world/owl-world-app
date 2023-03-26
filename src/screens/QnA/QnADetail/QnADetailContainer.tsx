@@ -44,7 +44,6 @@ export const QnADetailContainer = () => {
   };
 
   const onPressAccept = async (answerId: number) => {
-    console.log(111);
     await postAccept(answerId);
     refetchQuestion();
   };

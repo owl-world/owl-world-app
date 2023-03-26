@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 4,
   },
   content: {
     color: '#363636',
