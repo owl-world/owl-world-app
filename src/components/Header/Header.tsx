@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { WriteButton } from '../Button';
 import { SplitColumn, SplitRow } from '../SplitSpace';

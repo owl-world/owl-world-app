@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
   onPress?: () => void;

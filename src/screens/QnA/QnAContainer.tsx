@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useGetQuestions } from '@/apis/question';
+import { useAppSelector } from '@/hooks/redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from '../Stack/Stack';
 import { QnAPresenter } from './QnAPresenter';
@@ -10,6 +11,8 @@ type Route = RootStackScreenProps<'QnA'>['route'];
 export const QnAContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
+
+  const { member } = useAppSelector(selector => selector.auth);
 
   const { universityId, universityName } = route.params;
   const { questions, refetch } = useGetQuestions(universityId);
@@ -35,6 +38,7 @@ export const QnAContainer = () => {
   };
 
   const props = {
+    member,
     universityName,
     questions,
     onPressWrite,

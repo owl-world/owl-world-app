@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
@@ -15,7 +15,6 @@ type Props = {
 };
 
 export const AnswerRow = ({ answer, isOwner, onPressLike, onPressAccept }: Props) => {
-  const [test, setTest] = useState(false);
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.spaceBetween]}>
@@ -55,12 +54,12 @@ export const AnswerRow = ({ answer, isOwner, onPressLike, onPressAccept }: Props
       <View style={[styles.contentContainer, styles.row]}>
         <Text style={styles.content}>{answer.content}</Text>
 
-        <TouchableOpacity
-          style={test ? styles.acceptedButton : styles.acceptButton}
-          onPress={() => setTest(prev => !prev)}
+        {/* <TouchableOpacity
+          style={answer.accepted ? styles.acceptedButton : styles.acceptButton}
+          onPress={() => onPressAccept(answer.id)}
         >
           <Text>채택</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <SplitRow height={20} />

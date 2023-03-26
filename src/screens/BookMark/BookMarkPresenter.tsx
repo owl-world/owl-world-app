@@ -20,7 +20,7 @@ type Props = {
   onPressConfirm: () => void;
 };
 
-export const nonMemberNickname = '아기올빼미17';
+export const nonMemberNickname = '아기올빼미';
 
 export const BookMarkPresenter = ({ universities, likes, onPressLike, onPressConfirm }: Props) => {
   const { top } = useSafeAreaInsets();

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '../Text';
 
 type Props = {
@@ -10,12 +9,14 @@ type Props = {
   onPress: () => void;
 };
 
-export const Menu = ({ title, source, count, onPress }: Props) => {
+export const Menu = ({ title, source, onPress }: Props) => {
   return (
-    <TouchableWithoutFeedback style={styles.container} onPress={onPress}>
-      <Image resizeMode="cover" source={source} />
-      <Text style={styles.title}>{title}</Text>
-    </TouchableWithoutFeedback>
+    <TouchableOpacity activeOpacity={1.0} style={styles.container} onPress={onPress}>
+      <View>
+        <Image resizeMode="cover" source={source} />
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
