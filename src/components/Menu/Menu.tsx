@@ -11,7 +11,7 @@ type Props = {
 
 export const Menu = ({ title, source, onPress }: Props) => {
   return (
-    <TouchableOpacity activeOpacity={1.0} style={styles.container} onPress={onPress}>
+    <TouchableOpacity activeOpacity={1.0} onPress={onPress}>
       <View>
         <Image resizeMode="cover" source={source} />
         <Text style={styles.title}>{title}</Text>
@@ -21,7 +21,6 @@ export const Menu = ({ title, source, onPress }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
   title: {
     color: '#2E2E2E',
     fontSize: 14,

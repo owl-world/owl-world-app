@@ -15,9 +15,8 @@ export const SearchContainer = () => {
 
   const { search } = useGetSearch(searchValue);
 
-  const onPressPost = (type: 'post' | 'question', universityId: number, universityName: string) => {
+  const onPressPost = (type: string, universityId: number, universityName: string) => {
     if (type === 'post') {
-      navigation.navigate('FreePost');
     } else if (type === 'question') {
       navigation.navigate('QnA', {
         universityId,

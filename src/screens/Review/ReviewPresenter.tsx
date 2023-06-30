@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, StyleSheet } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
 import { SubmitButton } from '@/components/Button';
-import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { Review } from '@/components/Review';
 import { SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
@@ -18,48 +16,49 @@ type Props = {
   onPressSubmit: () => void;
 };
 
-export const ReviewPresenter = ({ reviews, member, findRatingByReviewId, onChange, onPressSubmit }: Props) => {
-  return (
-    <SafreAreaFlexView style={styles.container}>
-      <SplitRow height={50} />
+export const ReviewPresenter = ({ reviews, member, findRatingByReviewId, onChange, onPressSubmit }: Props) => (
+  <ScrollView contentContainerStyle={styles.container}>
+    <SplitRow height={50} />
 
-      <SvgCssUri style={styles.logo} uri={member?.universityLogo || null} />
+    <SvgCssUri style={styles.logo} uri={member?.universityLogo || null} />
 
-      <SplitRow height={23} />
+    <SplitRow height={23} />
 
-      <Text style={styles.nickname}>{member?.nickname}</Text>
-      <Text style={styles.department}>
-        {member?.universityName} {member?.majorName}
-      </Text>
+    <Text style={styles.nickname}>{member?.nickname}</Text>
+    <Text style={styles.department}>
+      {member?.universityName} {member?.majorName}
+    </Text>
 
-      <SplitRow height={20} />
+    <SplitRow height={20} />
 
-      <Text style={styles.explanation}>우리 학교에 별점 리뷰를 달아주세요!{'\n'}예비 신입생들에게 참고가 됩니다.</Text>
+    <Text style={styles.explanation}>우리 학교에 별점 리뷰를 달아주세요!{'\n'}예비 신입생들에게 참고가 됩니다.</Text>
 
-      <SplitRow height={23} />
+    <SplitRow height={23} />
 
-      <FlatList
-        keyExtractor={item => item.id.toString()}
-        data={reviews}
-        renderItem={({ item, index }) => (
-          <Review
-            key={item.id}
-            isCenter
-            rating={findRatingByReviewId(index)}
-            review={item.question}
-            onChange={rating => onChange(index, rating)}
-          />
-        )}
-      />
+    <FlatList
+      scrollEnabled={false}
+      keyExtractor={item => item.id.toString()}
+      data={reviews}
+      renderItem={({ item, index }) => (
+        <Review
+          key={item.id}
+          isCenter
+          rating={findRatingByReviewId(index)}
+          review={item.question}
+          onChange={rating => onChange(index, rating)}
+        />
+      )}
+    />
 
-      <SplitRow height={40} />
+    <SplitRow height={40} />
 
-      <SubmitButton style={styles.button} onPress={onPressSubmit}>
-        확인
-      </SubmitButton>
-    </SafreAreaFlexView>
-  );
-};
+    <SubmitButton style={styles.button} onPress={onPressSubmit}>
+      확인
+    </SubmitButton>
+
+    <SplitRow height={60} />
+  </ScrollView>
+);
 
 const styles = StyleSheet.create({
   container: {

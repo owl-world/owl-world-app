@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Dimensions, Pressable, StyleSheet, View } from 'react-native';
 import { Post } from '@/types/post';
 import { InteractionButton } from '../Button/InteractionButton';
 import { SplitColumn } from '../SplitSpace';
 import { Text } from '../Text';
+
+const { height } = Dimensions.get('screen');
 
 type Props = {
   post: Post;
@@ -13,7 +14,7 @@ type Props = {
 
 export const PostRow = ({ post, onPress }: Props) => {
   return (
-    <TouchableWithoutFeedback style={styles.container} onPress={() => onPress(post.id)}>
+    <Pressable style={styles.container} onPress={() => onPress(post.id)}>
       <Text style={styles.text} numberOfLines={1}>
         {post.title}
       </Text>
@@ -23,14 +24,14 @@ export const PostRow = ({ post, onPress }: Props) => {
         <SplitColumn width={2} />
         <InteractionButton type="comment" count={post.commentCount} />
       </View>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 15,
+    paddingVertical: height * 0.015,
     borderBottomColor: '#DEDEDE',
     borderBottomWidth: 1,
   },

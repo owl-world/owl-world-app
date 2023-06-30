@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, TextInput, TextInputProps, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, StyleSheet, TextInput, TextInputProps, TouchableOpacity, View } from 'react-native';
 
 type Props = TextInputProps & {
   onPressSearch: () => void;
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 22,
+    paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
@@ -37,6 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 19,
+    padding: 0,
     flex: 1,
   },
   icon: {

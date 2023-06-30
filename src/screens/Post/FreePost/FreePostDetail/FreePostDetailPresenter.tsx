@@ -1,14 +1,17 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Image, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
 import { Comment } from '@/components/Comment';
+import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { Header } from '@/components/Header';
 import { CommentInput } from '@/components/Input/CommentInput';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { Post } from '@/types/post';
+import { height, width } from '@/utils/globalStyles';
 
 type Props = {
   post: Post;
@@ -19,29 +22,31 @@ type Props = {
 };
 
 export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, onPressEnter }: Props) => {
+  const { bottom } = useSafeAreaInsets();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafreAreaFlexView>
       <KeyboardAvoidingView
         enabled
-        style={{ flex: 1 }}
+        style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={12}
       >
         <Header title="자유게시판" subTitle="올빼미광장" />
 
-        <SplitRow height={30} />
-
         <ScrollView style={styles.fullScreen}>
+          <SplitRow height={height * 30} />
+
           <View style={[styles.titleContainer, styles.row]}>
             <SvgCssUri style={styles.universityLogo} uri={post.memberDto.universityMajorDto.university.logo} />
-            <SplitColumn width={5} />
+            <SplitColumn width={width * 5} />
             <View>
               <Text style={styles.ninckname}>{post?.memberDto.nickname}</Text>
               <Text style={styles.createdAt}>{format(new Date(post?.memberDto.createdAt), 'MM/dd hh:mm')}</Text>
             </View>
           </View>
 
-          <SplitRow height={20} />
+          <SplitRow height={height * 20} />
 
           <View style={styles.mainContainer}>
             <View style={styles.contenContainer}>
@@ -49,7 +54,7 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
               <Text style={styles.content}>{post.content}</Text>
             </View>
 
-            <SplitRow height={15} />
+            <SplitRow height={height * 15} />
 
             <View style={styles.row}>
               <TouchableOpacity onPress={() => onPressLike(post.liked)}>
@@ -79,7 +84,7 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
               <Text style={styles.interactionText}>{post.commentCount}</Text>
             </View>
 
-            <SplitRow height={18} />
+            <SplitRow height={height * 18} />
 
             <View>
               {post.comments.map(_comment => {
@@ -98,7 +103,9 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
           />
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+
+      {!bottom && <SplitRow height={height * 10} />}
+    </SafreAreaFlexView>
   );
 };
 
@@ -145,6 +152,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 1.5,
   },
   title: {
     color: '#262626',

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, StyleSheet, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { LabelButton } from '@/components/Button';
 import { Container } from '@/components/Grid';
-import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { SearchInput } from '@/components/Input';
 import { Menu } from '@/components/Menu';
 import { PostRow } from '@/components/Post';
@@ -12,8 +11,9 @@ import { SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { TokenBody } from '@/types/auth';
 import { Post } from '@/types/post';
+import { height } from '@/utils/globalStyles';
 
-const { height } = Dimensions.get('screen');
+// const { height } = Dimensions.get('screen');
 
 type MenuType = {
   title: string;
@@ -41,13 +41,13 @@ export const HomePresenter = ({
   onPressSignOut,
 }: Props) => {
   return (
-    <SafreAreaFlexView>
+    <ScrollView>
       <Container paddingHorizontal={20}>
-        <SplitRow height={height * 0.1} />
+        <SplitRow height={height * 127} />
 
         {member && <Profile member={member} />}
 
-        <SplitRow height={44} />
+        <SplitRow height={height * 44} />
 
         <SearchInput
           placeholder="검색어를 입력해주세요."
@@ -55,7 +55,7 @@ export const HomePresenter = ({
           onPressSearch={onPressSearch}
         />
 
-        <SplitRow height={37} />
+        <SplitRow height={height * 39} />
 
         <View style={styles.postContainer}>
           <FlatList
@@ -69,26 +69,29 @@ export const HomePresenter = ({
           />
         </View>
 
-        <SplitRow height={44} />
+        <SplitRow height={height * 44} />
 
         <Container paddingHorizontal={25}>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={styles.menuContainer}
             data={menus}
+            scrollEnabled={false}
             renderItem={({ item }) => (
               <Menu key={item.title} title={item.title} source={item.source} onPress={item.onPress} />
             )}
           />
         </Container>
 
-        <SplitRow height={60} />
+        <SplitRow height={height * 60} />
 
         <LabelButton color="#8F8F8F" onPress={onPressSignOut}>
           로그아웃
         </LabelButton>
+
+        <SplitRow height={height * 60} />
       </Container>
-    </SafreAreaFlexView>
+    </ScrollView>
   );
 };
 

@@ -1,24 +1,24 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
 import { nonMemberNickname } from '@/screens/BookMark/BookMarkPresenter';
-import { Question } from '@/types/qna';
+import { Article } from '@/types/search';
+import { Row } from '../Grid';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 
 type Props = {
-  question: Question;
+  question: Article;
   isMember: boolean;
   onPress?: (questionId: number) => void;
 };
 
 export const QuestionRow = ({ question, isMember, onPress }: Props) => {
   return (
-    <View style={styles.container}>
-      <View style={[styles.row, styles.spaceBetween]}>
-        <View style={styles.row}>
+    <View>
+      <Row style={styles.spaceBetween}>
+        <Row>
           {isMember ? (
             <SvgCssUri style={styles.logo} uri={question.member.universityMajorDto.university.logo || null} />
           ) : (
@@ -27,15 +27,15 @@ export const QuestionRow = ({ question, isMember, onPress }: Props) => {
 
           <SplitColumn width={4} />
           <View>
-            <View style={styles.row}>
+            <Row>
               <Text style={styles.question}>Question</Text>
               <SplitColumn width={10} />
               <Text style={styles.createdAt}>{format(new Date(question.createdAt), 'MM/dd hh:mm')}</Text>
-            </View>
+            </Row>
             <Text style={styles.nickname}>{isMember ? question.member.nickname : nonMemberNickname}</Text>
           </View>
-        </View>
-      </View>
+        </Row>
+      </Row>
 
       <SplitRow height={9} />
 
@@ -51,23 +51,19 @@ export const QuestionRow = ({ question, isMember, onPress }: Props) => {
 
       <SplitRow height={9} />
 
-      <View style={[styles.footerContainer, styles.row]}>
+      <Row style={styles.footerContainer}>
         <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/comment.png')} />
         <SplitColumn width={2} />
         <Text style={styles.interactionText}>{question.answerCount}</Text>
-      </View>
+      </Row>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
   spaceBetween: {
     justifyContent: 'space-between',
   },
-  container: {},
   logo: {
     width: 36,
     height: 36,
@@ -117,7 +113,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-    elevation: 4,
+    elevation: 1.5,
   },
   content: {
     color: '#363636',

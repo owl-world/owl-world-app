@@ -37,19 +37,25 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingLeft: 14,
     paddingRight: 8,
+    elevation: 1.5,
   },
   input: {
     flex: 1,
     color: '#000000',
+    paddingVertical: 0,
     fontSize: 13,
     fontWeight: '500',
     lineHeight: 15,
   },
   button: {
-    paddingVertical: 10,
     paddingHorizontal: 10,
+    paddingVertical: 9,
     backgroundColor: '#FFEC9A',
     borderRadius: 10,
+    justifyContent: 'center',
   },
-  buttonText: {},
+  buttonText: {
+    alignSelf: 'center',
+    color: '#444444',
+  },
 });

@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 1.5,
   },
   enter: {
     marginTop: 6,

@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Post } from '@/types/post';
+import { Row } from '../Grid';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 
@@ -23,10 +23,10 @@ export const FreePostRow = React.memo(({ post, onPress }: Props) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(post.id)}>
-      <View style={[styles.titleContainer, styles.row]}>
+      <Row style={styles.titleContainer}>
         <Text style={styles.title}>{post.title}</Text>
 
-        <View style={styles.row}>
+        <Row>
           <Image
             style={styles.interactionIcon}
             resizeMode="cover"
@@ -38,12 +38,14 @@ export const FreePostRow = React.memo(({ post, onPress }: Props) => {
           <Image style={styles.interactionIcon} resizeMode="cover" source={require('@/assets/images/comment.png')} />
           <SplitColumn width={1} />
           <Text style={styles.interactionText}>{post.commentCount}</Text>
-        </View>
-      </View>
+        </Row>
+      </Row>
 
       <SplitRow height={2} />
 
-      <Text style={styles.content}>{post.content}</Text>
+      <Text style={styles.content} numberOfLines={1} ellipsizeMode="tail">
+        {post.content}
+      </Text>
       <Text style={styles.footer}>
         {isNow(post.createdAt) ? '방금' : format(new Date(post.createdAt), 'MM/dd hh:mm')}
         <Text style={styles.separator}>ㅣ</Text>
@@ -54,9 +56,6 @@ export const FreePostRow = React.memo(({ post, onPress }: Props) => {
 });
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
   container: {
     paddingHorizontal: 10,
     paddingTop: 10,
@@ -69,6 +68,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 1.5,
   },
   titleContainer: {
     justifyContent: 'space-between',

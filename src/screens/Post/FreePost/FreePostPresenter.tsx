@@ -1,10 +1,13 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Flex } from '@/components/Grid';
+import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { Header } from '@/components/Header';
 import { FreePostRow } from '@/components/Post';
 import { SplitRow } from '@/components/SplitSpace';
 import { Post } from '@/types/post';
+import { height } from '@/utils/globalStyles';
 
 type Props = {
   posts?: Post[];
@@ -16,26 +19,23 @@ const Spacer = () => <SplitRow height={6} />;
 
 export const FreePostPresenter = ({ posts, onPressPost, onPressWrite }: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafreAreaFlexView>
       <Header title="자유게시판" subTitle="올빼미광장" isWritable onPressWrite={onPressWrite} />
-      <View style={styles.fullScreen}>
+      <Flex>
         <FlatList
           data={posts}
-          ListHeaderComponent={<SplitRow height={30} />}
+          ListHeaderComponent={<SplitRow height={height * 30} />}
           ItemSeparatorComponent={Spacer}
           renderItem={({ item }) => <FreePostRow key={item.id} post={item} onPress={onPressPost} />}
+          contentContainerStyle={styles.postContentContainer}
         />
-      </View>
-    </SafeAreaView>
+      </Flex>
+    </SafreAreaFlexView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  fullScreen: {
-    flex: 1,
+  postContentContainer: {
     paddingHorizontal: 10,
   },
 });

@@ -1,16 +1,15 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { SplitColumn } from '../SplitSpace';
 
 type Props = {
   title: string;
   onPressPrev?: () => void;
-  onPressWrite?: () => void;
 };
 
-export const SearchHeader = ({ title, onPressPrev, onPressWrite }: Props) => {
+export const SearchHeader = ({ title, onPressPrev }: Props) => {
   const navigation = useNavigation();
 
   const onPressPrevButton = () => {
@@ -33,7 +32,6 @@ export const SearchHeader = ({ title, onPressPrev, onPressWrite }: Props) => {
         placeholderTextColor={'#000000'}
         value={title}
       />
-      {/* {isWritable && <WriteButton onPress={onPressWrite} />} */}
     </View>
   );
 };
@@ -43,15 +41,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   container: {
-    paddingTop: 15,
+    paddingVertical: 15,
     paddingHorizontal: 15,
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   headerContainer: {
     flexDirection: 'row',
   },
   searchInput: {
     flex: 1,
+    paddingVertical: 0,
     color: '#000000',
     fontSize: 17,
     fontWeight: '500',

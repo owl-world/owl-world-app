@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   text: {
+    color: '#000000',
     fontSize: 13,
     fontWeight: '400',
     lineHeight: 15,
