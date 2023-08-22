@@ -1,12 +1,14 @@
 import React from 'react';
 import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '@/components/Header';
 import { CommentInput } from '@/components/Input/CommentInput';
 import { AnswerRow, QuestionRow } from '@/components/Question';
 import { SplitRow } from '@/components/SplitSpace';
 import { TokenBody } from '@/types/auth';
 import { Question } from '@/types/qna';
+import { height } from '@/utils/globalStyles';
 
 type Props = {
   member?: TokenBody;
@@ -29,11 +31,13 @@ export const QnADetailPresenter = ({
   onChange,
   onPressEnter,
 }: Props) => {
+  const { bottom } = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         enabled
-        style={{ flex: 1 }}
+        style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={12}
       >
@@ -62,11 +66,12 @@ export const QnADetailPresenter = ({
         {member && (
           <View style={styles.inputContainer}>
             <CommentInput
-              placeholder="답변을 기다리고 있어요!"
+              placeholder="예비 신입생이 답변을 기다리고 있어요!"
               value={answer}
               onChange={onChange}
               onPressEnter={onPressEnter}
             />
+            {!bottom && <SplitRow height={height * 10} />}
           </View>
         )}
       </KeyboardAvoidingView>
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
   },
   fullScreen: {
     flex: 1,
-    paddingHorizontal: 10,
   },
   inputContainer: {
     paddingHorizontal: 10,

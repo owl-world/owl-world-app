@@ -21,8 +21,6 @@ export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props
     <SafeAreaView style={styles.container}>
       <Header title="자유게시판" subTitle="올빼미광장" />
 
-      <SplitRow height={30} />
-
       <View style={[styles.titleContainer, styles.row]}>
         <View style={[styles.row, styles.leftTitle]}>
           <SvgCssUri style={styles.universityLogo} uri={member?.universityLogo || null} />
@@ -38,20 +36,24 @@ export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props
       <SplitRow height={15} />
 
       <View style={styles.inputContainer}>
+        <SplitRow height={15} />
         <TextInput
           style={styles.titleInput}
           placeholder="제목을 입력하세요."
           placeholderTextColor={'#262626'}
           onChangeText={text => onChange('title', text)}
         />
+        <SplitRow height={15} />
         <TextInput
-          style={styles.contentInpu}
+          style={styles.contentInput}
           placeholder="제목을 내용을 입력하세요."
           placeholderTextColor={'#363636'}
           multiline
           onChangeText={text => onChange('content', text)}
         />
       </View>
+
+      <SplitRow height={18} />
     </SafeAreaView>
   );
 };
@@ -92,21 +94,28 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     backgroundColor: '#F5F5F5',
-    paddingVertical: 15,
+    // paddingVertical: height * 15,
     paddingHorizontal: 10,
     marginHorizontal: 15,
     borderRadius: 15,
+    elevation: 1,
   },
   titleInput: {
     color: '#262626',
     fontSize: 17,
     fontWeight: '700',
-    lineHeight: 20,
+    // lineHeight: 20,
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    height: 20,
   },
-  contentInpu: {
+  contentInput: {
     color: '#363636',
     fontSize: 14,
     fontWeight: '500',
+    paddingHorizontal: 5,
+    // paddingVertical: 0,
     lineHeight: 20,
+    paddingTop: 0,
   },
 });

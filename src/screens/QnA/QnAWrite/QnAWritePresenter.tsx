@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
 import { WriteButton } from '@/components/Button';
+import { Row } from '@/components/Grid';
 import { Header } from '@/components/Header';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
@@ -24,10 +25,8 @@ export const QnAWritePresenter = ({ universityName, member, onChange, onPressWri
     <SafeAreaView style={styles.container}>
       <Header title="질문답변 게시판" subTitle={universityName} />
 
-      <SplitRow height={30} />
-
-      <View style={[styles.titleContainer, styles.row]}>
-        <View style={[styles.row, styles.leftTitle]}>
+      <Row style={styles.titleContainer}>
+        <Row style={styles.leftTitle}>
           {member ? (
             <SvgCssUri style={styles.universityLogo} uri={member.universityLogo} />
           ) : (
@@ -42,9 +41,9 @@ export const QnAWritePresenter = ({ universityName, member, onChange, onPressWri
             <Text style={styles.ninckname}>{member ? member.nickname : nonMemberNickname}</Text>
             <Text style={styles.createdAt}>{format(new Date(), 'MM/dd hh:mm')}</Text>
           </View>
-        </View>
+        </Row>
         <WriteButton onPress={onPressWrite} />
-      </View>
+      </Row>
 
       <SplitRow height={15} />
 
@@ -64,9 +63,6 @@ export const QnAWritePresenter = ({ universityName, member, onChange, onPressWri
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
   container: {
     flex: 1,
   },
@@ -103,6 +99,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginHorizontal: 15,
     borderRadius: 15,
+    elevation: 1,
   },
   titleInput: {
     color: '#262626',

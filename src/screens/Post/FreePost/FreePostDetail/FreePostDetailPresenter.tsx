@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
 import { Comment } from '@/components/Comment';
+import { Row } from '@/components/Grid';
 import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { Header } from '@/components/Header';
 import { CommentInput } from '@/components/Input/CommentInput';
@@ -37,14 +38,14 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
         <ScrollView style={styles.fullScreen}>
           <SplitRow height={height * 30} />
 
-          <View style={[styles.titleContainer, styles.row]}>
+          <Row style={styles.titleContainer}>
             <SvgCssUri style={styles.universityLogo} uri={post.memberDto.universityMajorDto.university.logo} />
             <SplitColumn width={width * 5} />
             <View>
               <Text style={styles.ninckname}>{post?.memberDto.nickname}</Text>
               <Text style={styles.createdAt}>{format(new Date(post?.memberDto.createdAt), 'MM/dd hh:mm')}</Text>
             </View>
-          </View>
+          </Row>
 
           <SplitRow height={height * 20} />
 
@@ -56,7 +57,7 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
 
             <SplitRow height={height * 15} />
 
-            <View style={styles.row}>
+            <Row>
               <TouchableOpacity onPress={() => onPressLike(post.liked)}>
                 {post.liked ? (
                   <Image
@@ -82,7 +83,7 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
               />
               <SplitColumn width={1} />
               <Text style={styles.interactionText}>{post.commentCount}</Text>
-            </View>
+            </Row>
 
             <SplitRow height={height * 18} />
 
@@ -110,9 +111,6 @@ export const FreePostDetailPresenter = ({ post, comment, onPressLike, onChange, 
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
   container: {
     flex: 1,
   },
@@ -165,7 +163,6 @@ const styles = StyleSheet.create({
     color: '#363636',
     fontSize: 14,
     fontWeight: '500',
-    lineHeight: 20,
   },
   interactionIcon: {
     width: 18,

@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SvgCssUri } from 'react-native-svg';
 import { University } from '@/types/university';
+import { Row } from '../Grid';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Stars } from '../Star/Stars';
 import { Text } from '../Text';
@@ -17,32 +18,30 @@ type Props = {
 export const UniversityRow = ({ university, rating, isDetail, onPressQnA }: Props) => {
   return (
     <React.Fragment>
-      <View style={[styles.row]}>
+      <Row>
         <SvgCssUri style={styles.logo} uri={university.logo} />
         <SplitColumn width={25} />
         <View style={styles.textContainer}>
           <Text style={styles.name}>{university.name}</Text>
           <SplitRow height={10} />
-          <View style={styles.row}>
+          <Row>
             <Text style={styles.rate}>종합평점</Text>
             <SplitColumn width={5} />
             <Stars rating={rating || 0} size={19} />
-          </View>
+          </Row>
         </View>
+
         {isDetail && onPressQnA && (
           <TouchableOpacity style={styles.button} onPress={() => onPressQnA(university.id, university.name)}>
             <Text style={styles.buttonText}>질문답변 게시판</Text>
           </TouchableOpacity>
         )}
-      </View>
+      </Row>
     </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
   logo: {
     width: 98,
     height: 98,
@@ -63,10 +62,10 @@ const styles = StyleSheet.create({
     lineHeight: 17,
   },
   button: {
-    left: -40,
+    left: -15,
     top: -10,
     backgroundColor: '#FFF8D8',
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 11,
     borderRadius: 15,
     shadowColor: 'rgb(0,0,0)',

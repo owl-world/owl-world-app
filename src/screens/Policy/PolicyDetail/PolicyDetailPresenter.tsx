@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '@/components/Header';
 import { Label } from '@/components/Label';
 import { Review } from '@/components/Review';
@@ -20,6 +20,8 @@ type Props = {
 };
 
 export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, avg, onPressQnA }: Props) => {
+  const { bottom } = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="제도/지원" subTitle="올빼미광장" />
@@ -115,6 +117,8 @@ export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, avg, o
           </ScrollView>
         </View>
       </View>
+
+      {!bottom && <SplitRow height={18} />}
     </SafeAreaView>
   );
 };

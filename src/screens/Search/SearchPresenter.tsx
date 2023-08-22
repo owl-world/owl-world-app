@@ -27,7 +27,7 @@ export const SearchPresenter = ({ search, searchValue, onPressPost }: Props) => 
                 key={article.id}
                 question={article}
                 isMember={!!article.member}
-                onPress={() => onPressPost('question', article.universityDto.id, article.universityDto.name)}
+                onPress={() => onPressPost('question', article.id, article.universityDto.name)}
               />
             );
           } else if (article.type === 'post') {
@@ -35,7 +35,7 @@ export const SearchPresenter = ({ search, searchValue, onPressPost }: Props) => 
               <React.Fragment key={article.id}>
                 <FreePostRowForSearch
                   post={article}
-                  onPress={() => onPressPost('post', article.universityDto.id, article.universityDto.name)}
+                  onPress={() => onPressPost('post', article.id, article.member.universityMajorDto.name)}
                 />
                 <SplitRow height={20} />
               </React.Fragment>

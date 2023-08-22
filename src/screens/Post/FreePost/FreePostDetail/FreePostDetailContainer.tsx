@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Keyboard } from 'react-native';
 import { usePostComment } from '@/apis/comment';
 import { usePostLike, usePostUnLike } from '@/apis/like';
 import { useGetFreePost } from '@/apis/post';
@@ -51,6 +52,7 @@ export const FreePostDetailContainer = () => {
       {
         onSuccess: () => {
           setComment('');
+          Keyboard.dismiss();
         },
       }
     );

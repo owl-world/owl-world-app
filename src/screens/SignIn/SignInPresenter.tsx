@@ -6,6 +6,7 @@ import { SafreAreaFlexView } from '@/components/Grid/SafreAreaFlexView';
 import { SignInput } from '@/components/Input';
 import { SplitRow } from '@/components/SplitSpace';
 import { SignInEntity } from '@/types/auth';
+import { height } from '@/utils/globalStyles';
 
 type Props = {
   form: any;
@@ -22,9 +23,15 @@ export const SignInPresenter = ({ form, onChange, onPressSignIn, onPressSignUp, 
     <SplitRow height={30} />
 
     <Container paddingHorizontal={30}>
-      <SignInput placeholder="학교 이메일" onChangeText={text => onChange('email', text)} value={form.email} />
+      <SignInput
+        style={styles.input}
+        placeholder="학교 이메일"
+        onChangeText={text => onChange('email', text)}
+        value={form.email}
+      />
       <SplitRow height={20} />
       <SignInput
+        style={styles.input}
         placeholder="비밀번호"
         secureTextEntry={true}
         onChangeText={text => onChange('password', text)}
@@ -50,5 +57,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignSelf: 'center',
+  },
+  input: {
+    height: height * 50,
   },
 });

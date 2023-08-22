@@ -3,20 +3,20 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
 import { nonMemberNickname } from '@/screens/BookMark/BookMarkPresenter';
-import { Article } from '@/types/search';
+import { Question } from '@/types/qna';
 import { Row } from '../Grid';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 
 type Props = {
-  question: Article;
+  question: Question;
   isMember: boolean;
   onPress?: (questionId: number) => void;
 };
 
 export const QuestionRow = ({ question, isMember, onPress }: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Row style={styles.spaceBetween}>
         <Row>
           {isMember ? (
@@ -61,6 +61,9 @@ export const QuestionRow = ({ question, isMember, onPress }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    // paddingHorizontal: 10,
+  },
   spaceBetween: {
     justifyContent: 'space-between',
   },
@@ -119,7 +122,6 @@ const styles = StyleSheet.create({
     color: '#363636',
     fontSize: 12,
     fontWeight: '500',
-    lineHeight: 14,
   },
   footerContainer: {
     alignSelf: 'flex-end',

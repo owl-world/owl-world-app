@@ -8,7 +8,7 @@ import { SignInPresenter } from './SignInPresenter';
 type Navigation = RootStackScreenProps<'SignIn'>['navigation'];
 
 const initialForm = {
-  email: 'kwang@google.com',
+  email: 'test@test.com',
   password: '1234',
 };
 

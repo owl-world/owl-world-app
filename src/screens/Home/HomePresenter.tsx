@@ -41,9 +41,9 @@ export const HomePresenter = ({
   onPressSignOut,
 }: Props) => {
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <Container paddingHorizontal={20}>
-        <SplitRow height={height * 127} />
+        <SplitRow height={height * 100} />
 
         {member && <Profile member={member} />}
 

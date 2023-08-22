@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInputProps, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { height } from '@/utils/globalStyles';
 
 export const SignInput = ({ ...rest }: TextInputProps) => {
   return (
@@ -21,7 +20,6 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     paddingHorizontal: 10,
-    paddingVertical: height * 14,
     backgroundColor: '#FFFDF7',
     shadowColor: 'rgb(0,0,0)',
     shadowOpacity: 0.1,
@@ -32,9 +30,10 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   input: {
+    fontFamily: 'Pretendard-Medium',
     fontSize: 13,
     fontWeight: '400',
-    lineHeight: 16,
+    lineHeight: 13,
     padding: 0,
   },
 });

@@ -39,6 +39,7 @@ export const SignUpContainer = () => {
   const validate = () => {
     let isValid = true;
 
+    // 회원가입 폼이 비어있는 경우를 체크한다.
     for (let [, value] of Object.entries(form)) {
       if (!value) {
         isValid = false;

@@ -15,11 +15,17 @@ export const SearchContainer = () => {
 
   const { search } = useGetSearch(searchValue);
 
-  const onPressPost = (type: string, universityId: number, universityName: string) => {
+  const onPressPost = (type: string, postId: number, universityName: string) => {
     if (type === 'post') {
+      navigation.navigate('MainStack', {
+        screen: 'FreePostDetail',
+        params: {
+          postId,
+        },
+      });
     } else if (type === 'question') {
-      navigation.navigate('QnA', {
-        universityId,
+      navigation.navigate('QnADetail', {
+        questionId: postId,
         universityName,
       });
     }

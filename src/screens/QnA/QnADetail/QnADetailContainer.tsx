@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Keyboard } from 'react-native';
 import { usePostLike, usePostUnLike } from '@/apis/like';
 import { useGetQuestion, usePostAccept, usePostAnswer } from '@/apis/question';
 import { useAppSelector } from '@/hooks/redux';
@@ -58,6 +59,7 @@ export const QnADetailContainer = () => {
       {
         onSuccess: () => {
           setAnswer('');
+          Keyboard.dismiss();
         },
       }
     );

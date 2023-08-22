@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import { Header } from '@/components/Header';
 import { QuestionRow } from '@/components/Question';
 import { SplitRow } from '@/components/SplitSpace';
@@ -22,19 +22,13 @@ export const QnAPresenter = ({ member, universityName, questions, onPressWrite, 
 
       <SplitRow height={30} />
 
-      <ScrollView style={styles.fullScreen}>
-        {questions &&
-          questions.map(question => {
-            return (
-              <QuestionRow
-                key={question.id}
-                question={question}
-                isMember={!!question.member}
-                onPress={onPressQuestion}
-              />
-            );
-          })}
-      </ScrollView>
+      <FlatList
+        contentContainerStyle={styles.fullScreen}
+        data={questions}
+        renderItem={({ item }) => (
+          <QuestionRow key={item.id} question={item} isMember={!!item.member} onPress={onPressQuestion} />
+        )}
+      />
     </SafeAreaView>
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Row } from '@/components/Grid';
 import { Header } from '@/components/Header';
 import { SearchInput } from '@/components/Input';
 import { SplitColumn, SplitRow } from '@/components/SplitSpace';
@@ -9,8 +10,7 @@ import { Text } from '@/components/Text';
 import { UniversityRow } from '@/components/University';
 import { nonMemberNickname } from '@/screens/BookMark/BookMarkPresenter';
 import { BookMark } from '@/types/review';
-
-const { height } = Dimensions.get('screen');
+import { height } from '@/utils/globalStyles';
 
 type Props = {
   bookmarks: BookMark[];
@@ -27,7 +27,7 @@ export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity 
       <Header title=" " subTitle=" " />
 
       <View style={styles.fullScreen}>
-        <SplitRow height={height * 0.07} />
+        <SplitRow height={height * 60} />
 
         <View style={styles.profileContainer}>
           <Image style={styles.logo} resizeMode="cover" source={require('@/assets/images/signup_icon.png')} />
@@ -47,11 +47,11 @@ export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity 
       </View>
 
       <View style={styles.mainContainer}>
-        <View style={styles.row}>
+        <Row style={styles.label}>
           <Image style={styles.like} resizeMode="cover" source={require('@/assets/images/filled_heart.png')} />
           <SplitColumn width={4} />
           <Text style={styles.title}>즐겨찾는 학교</Text>
-        </View>
+        </Row>
 
         <SplitRow height={10} />
 
@@ -77,9 +77,6 @@ export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity 
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
   container: {
     flex: 1,
   },
@@ -113,6 +110,9 @@ const styles = StyleSheet.create({
   mainContainer: {
     paddingHorizontal: 10,
   },
+  label: {
+    alignItems: 'center',
+  },
   like: {
     width: 15,
     height: 15,
@@ -133,5 +133,6 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
+    elevation: 4,
   },
 });
