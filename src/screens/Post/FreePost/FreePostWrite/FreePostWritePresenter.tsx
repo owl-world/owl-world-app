@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
 import { WriteButton } from '@/components/Button';
 import { Header } from '@/components/Header';
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props) => {
+  const { bottom } = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="자유게시판" subTitle="올빼미광장" />
@@ -53,7 +56,7 @@ export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props
         />
       </View>
 
-      <SplitRow height={18} />
+      {!bottom && <SplitRow height={18} />}
     </SafeAreaView>
   );
 };

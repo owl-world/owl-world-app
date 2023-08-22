@@ -14,11 +14,12 @@ import { height } from '@/utils/globalStyles';
 
 type Props = {
   bookmarks: BookMark[];
-  onChnage: (value: string) => void;
+  onChange: (value: string) => void;
+  onPressSearch: () => void;
   onPressUniversity: (universityId: number, code: string, avg: number) => void;
 };
 
-export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity }: Props) => {
+export const NonMemberHomePresenter = ({ bookmarks, onChange, onPressSearch, onPressUniversity }: Props) => {
   const { top } = useSafeAreaInsets();
   return (
     <ScrollView style={styles.container}>
@@ -41,7 +42,11 @@ export const NonMemberHomePresenter = ({ bookmarks, onChnage, onPressUniversity 
 
         <SplitRow height={44} />
 
-        <SearchInput placeholder="검색어를 입력해주세요." onChangeText={text => onChnage(text)} />
+        <SearchInput
+          placeholder="검색어를 입력해주세요."
+          onChangeText={text => onChange(text)}
+          onPressSearch={onPressSearch}
+        />
 
         <SplitRow height={37} />
       </View>

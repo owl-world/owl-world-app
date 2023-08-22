@@ -24,8 +24,18 @@ export const NonMemberHomeContainer = () => {
     setUniversityIds(JSON.parse(ids));
   };
 
-  const onChnage = (value: string) => {
+  const onChange = (value: string) => {
     setSearchValue(value);
+  };
+
+  const onPressSearch = () => {
+    if (!searchValue.trim()) {
+      return;
+    }
+
+    naviation.navigate('Search', {
+      searchValue,
+    });
   };
 
   const onPressUniversity = (universityId: number, code: string, avg: number) => {
@@ -38,7 +48,8 @@ export const NonMemberHomeContainer = () => {
 
   const props = {
     bookmarks,
-    onChnage,
+    onChange,
+    onPressSearch,
     onPressUniversity,
   };
 

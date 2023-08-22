@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgCssUri } from 'react-native-svg';
@@ -10,8 +10,6 @@ import { SplitColumn, SplitRow } from '@/components/SplitSpace';
 import { Text } from '@/components/Text';
 import { University } from '@/types/university';
 import { replaceUniversityName } from '@/utils/university';
-
-const { width } = Dimensions.get('screen');
 
 type Props = {
   universities?: University[];
@@ -29,9 +27,9 @@ export const BookMarkPresenter = ({ universities, likes, onPressLike, onPressCon
     <View style={styles.container}>
       <SplitRow height={top} />
 
-      <Header title=" " subTitle=" " />
-
       <ScrollView>
+        <Header title=" " subTitle=" " />
+
         <SplitRow height={10} />
 
         <View style={styles.nicknameContainer}>
@@ -57,7 +55,7 @@ export const BookMarkPresenter = ({ universities, likes, onPressLike, onPressCon
           {universities &&
             universities.map(university => {
               return (
-                <View key={university.id}>
+                <View key={university.id} style={styles.university}>
                   <SvgCssUri width={70} height={70} style={styles.universityLogo} uri={university.logo} />
                   <SplitRow height={13} />
                   <View style={styles.row}>
@@ -93,6 +91,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     flex: 1,
@@ -136,17 +135,23 @@ const styles = StyleSheet.create({
     height: 70,
   },
   universityContainer: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     flexWrap: 'wrap',
-    paddingHorizontal: 35,
-    gap: width * 0.125,
+    // alignItems: 'flex-start',
+    // paddingHorizontal: 35,
+  },
+  university: {
+    width: '33.333%',
+    alignItems: 'center',
+    paddingBottom: 40,
   },
   universityName: {
     left: -5,
     color: '#141414',
     fontSize: 15,
     fontWeight: '400',
-    lineHeight: 15,
     textAlign: 'center',
   },
   like: {

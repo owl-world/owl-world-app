@@ -60,6 +60,7 @@ fetcher.interceptors.response.use(
     // console.log('[Axios response error]');
 
     console.log('error');
+    console.log(error);
 
     if (error.response.data.errorResponse.code === '401 UNAUTHORIZED') {
       store.dispatch(onLogout());

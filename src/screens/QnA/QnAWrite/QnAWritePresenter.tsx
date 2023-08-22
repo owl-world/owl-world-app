@@ -21,6 +21,7 @@ type Props = {
 
 export const QnAWritePresenter = ({ universityName, member, onChange, onPressWrite }: Props) => {
   const { bottom } = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="질문답변 게시판" subTitle={universityName} />
