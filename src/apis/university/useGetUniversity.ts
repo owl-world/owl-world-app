@@ -6,13 +6,15 @@ type GetUniversityResponse = {
   data: UniversityMajor[];
 };
 
-const getUniversity = async (code: string) => {
+const getUniversity = async (code: string | null) => {
   const res = await fetcher.get<GetUniversityResponse>(`/university/${code}/major`);
   return res.data.data;
 };
 
-export const useGetUniversity = (code: string) => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetUniversity', code], () => getUniversity(code));
+export const useGetUniversity = (code: string | null) => {
+  const { data, isLoading, isError, refetch } = useQuery(['useGetUniversity', code], () => getUniversity(code), {
+    enabled: !!code,
+  });
 
   return {
     universityMajor: data,

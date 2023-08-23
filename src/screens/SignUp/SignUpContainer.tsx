@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import { useSignUp } from '@/apis/member';
+import { useGetUniversities, useGetUniversity } from '@/apis/university';
 import { SignUpEntity } from '@/types/member';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps } from '../Stack/Stack';
@@ -21,12 +23,17 @@ export const SignUpContainer = () => {
 
   const [form, setForm] = useState<SignUpEntity>(initialForm);
 
+  const { universities = [] } = useGetUniversities();
+  const { universityMajor = [] } = useGetUniversity(form.university);
+
   const onChange = useCallback(
     (key: keyof SignUpEntity, value: string) => {
       setForm({ ...form, [key]: value });
     },
     [form]
   );
+
+  // const fetchMajor = (code: string) => {};
 
   const onPressSignUp = async () => {
     if (validate()) {
@@ -57,11 +64,19 @@ export const SignUpContainer = () => {
     navigation.goBack();
   };
 
-  const onPressNonMemberSignIn = () => {
-    navigation.navigate('BookMark');
+  const onPressNonMemberSignIn = async () => {
+    const bookmarks = JSON.parse((await EncryptedStorage.getItem('bookMark')) || '[]');
+
+    if (bookmarks.length > 0) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('BookMark');
+    }
   };
 
   const props = {
+    universities,
+    universityMajor,
     onChange,
     onPressSignUp,
     onPressSignIn,

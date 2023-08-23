@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import { useAuth } from '@/hooks/useAuth';
 import { SignInEntity } from '@/types/auth';
 import { useNavigation } from '@react-navigation/native';
@@ -8,8 +9,8 @@ import { SignInPresenter } from './SignInPresenter';
 type Navigation = RootStackScreenProps<'SignIn'>['navigation'];
 
 const initialForm = {
-  email: 'test@test.com',
-  password: '1234',
+  email: '',
+  password: '',
 };
 
 export const SignInContainer = () => {
@@ -27,7 +28,6 @@ export const SignInContainer = () => {
   );
 
   const onPressSignIn = async () => {
-    // TO-DO validation();
     if (!!form.email.trim() && !!form.password.trim()) {
       signIn(form);
     }
@@ -37,8 +37,14 @@ export const SignInContainer = () => {
     navigation.navigate('SignUp');
   };
 
-  const onPressNonMemberSignIn = () => {
-    navigation.navigate('BookMark');
+  const onPressNonMemberSignIn = async () => {
+    const bookmarks = JSON.parse((await EncryptedStorage.getItem('bookMark')) || '[]');
+
+    if (bookmarks.length > 0) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('BookMark');
+    }
   };
 
   const props = {

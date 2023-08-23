@@ -3,7 +3,7 @@ import { UniversityMajor } from './university';
 export type SignUpEntity = {
   email: string;
   password: string;
-  university: number | null;
+  university: string | null;
   majorId: number | null;
   nickname: string;
 };

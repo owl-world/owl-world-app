@@ -14,12 +14,8 @@ const USER_STORAGE_KEY = 'user';
 const IS_STANDING_WATER_KEY = 'isStandingWater';
 
 export const initAuth = createAsyncThunk('auth/initAuth', async () => {
-  const user = await EncryptedStorage.getItem(USER_STORAGE_KEY);
+  const user = (await EncryptedStorage.getItem(USER_STORAGE_KEY)) || '{}';
   const isStandingWater = await EncryptedStorage.getItem(IS_STANDING_WATER_KEY);
-
-  if (!user) {
-    return;
-  }
 
   return { ...JSON.parse(user), isStandingWater: Boolean(isStandingWater) };
 });

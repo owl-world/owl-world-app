@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
 import { University } from '@/types/university';
 import { Row } from '../Grid';
@@ -33,7 +32,9 @@ export const UniversityRow = ({ university, rating, isDetail, onPressQnA }: Prop
 
         {isDetail && onPressQnA && (
           <TouchableOpacity style={styles.button} onPress={() => onPressQnA(university.id, university.name)}>
-            <Text style={styles.buttonText}>질문답변 게시판</Text>
+            <View>
+              <Text style={styles.buttonText}>질문답변 게시판</Text>
+            </View>
           </TouchableOpacity>
         )}
       </Row>
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
   button: {
     left: -15,
     top: -10,
+    alignSelf: 'flex-start',
     backgroundColor: '#FFF8D8',
     paddingVertical: 10,
     paddingHorizontal: 11,
