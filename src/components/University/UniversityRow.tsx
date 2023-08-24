@@ -21,6 +21,14 @@ export const UniversityRow = ({ university, rating, isDetail, onPressQnA }: Prop
         <SvgCssUri style={styles.logo} uri={university.logo} />
         <SplitColumn width={25} />
         <View style={styles.textContainer}>
+          {isDetail && onPressQnA && (
+            <TouchableOpacity style={styles.button} onPress={() => onPressQnA(university.id, university.name)}>
+              <View>
+                <Text style={styles.buttonText}>질문답변 게시판</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+
           <Text style={styles.name}>{university.name}</Text>
           <SplitRow height={10} />
           <Row>
@@ -29,14 +37,6 @@ export const UniversityRow = ({ university, rating, isDetail, onPressQnA }: Prop
             <Stars rating={rating || 0} size={19} />
           </Row>
         </View>
-
-        {isDetail && onPressQnA && (
-          <TouchableOpacity style={styles.button} onPress={() => onPressQnA(university.id, university.name)}>
-            <View>
-              <Text style={styles.buttonText}>질문답변 게시판</Text>
-            </View>
-          </TouchableOpacity>
-        )}
       </Row>
     </React.Fragment>
   );
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     height: 98,
   },
   textContainer: {
+    flex: 1,
     justifyContent: 'center',
   },
   name: {
@@ -63,9 +64,8 @@ const styles = StyleSheet.create({
     lineHeight: 17,
   },
   button: {
-    left: -15,
-    top: -10,
-    alignSelf: 'flex-start',
+    overflow: 'visible',
+    alignSelf: 'flex-end',
     backgroundColor: '#FFF8D8',
     paddingVertical: 10,
     paddingHorizontal: 11,
