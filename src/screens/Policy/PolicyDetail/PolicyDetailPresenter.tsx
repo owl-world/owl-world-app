@@ -30,7 +30,7 @@ export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, avg, o
 
       <View style={styles.fullScreen}>
         <View style={styles.mainContainer}>
-          <ScrollView style={styles.mainScrollContainer} showsVerticalScrollIndicator={true}>
+          <ScrollView contentContainerStyle={styles.mainScrollContainer} showsVerticalScrollIndicator={true}>
             <SplitRow height={25} />
 
             <UniversityRow university={universityMajor[0].university} isDetail onPressQnA={onPressQnA} rating={avg} />
@@ -52,7 +52,7 @@ export const PolicyDetailPresenter = ({ universityMajor, reviews, scores, avg, o
 
             {/* 학과 */}
             <View style={styles.row}>
-              <Text style={styles.content}>힉과 |</Text>
+              <Text style={styles.content}>학과 |</Text>
               <SplitColumn width={10} />
               <View>
                 {universityMajor.map(major => {
