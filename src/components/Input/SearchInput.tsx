@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   input: {
+    color: '#000000',
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 19,

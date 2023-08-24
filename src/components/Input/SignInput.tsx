@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   input: {
+    color: '#000000',
     fontFamily: 'Pretendard-Medium',
     fontSize: 13,
     fontWeight: '400',
