@@ -49,7 +49,7 @@ export const FreePostWritePresenter = ({ member, onChange, onPressWrite }: Props
         <SplitRow height={15} />
         <TextInput
           style={styles.contentInput}
-          placeholder="제목을 내용을 입력하세요."
+          placeholder="내용을 입력하세요."
           placeholderTextColor={'#363636'}
           multiline
           onChangeText={text => onChange('content', text)}
