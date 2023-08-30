@@ -24,10 +24,10 @@ export const FreePostPresenter = ({ posts, onPressPost, onPressWrite }: Props) =
       <Flex>
         <FlatList
           data={posts}
+          contentContainerStyle={styles.postContentContainer}
           ListHeaderComponent={<SplitRow height={height * 30} />}
           ItemSeparatorComponent={Spacer}
           renderItem={({ item }) => <FreePostRow key={item.id} post={item} onPress={onPressPost} />}
-          contentContainerStyle={styles.postContentContainer}
         />
       </Flex>
     </SafreAreaFlexView>
@@ -37,5 +37,6 @@ export const FreePostPresenter = ({ posts, onPressPost, onPressWrite }: Props) =
 const styles = StyleSheet.create({
   postContentContainer: {
     paddingHorizontal: 10,
+    flex: 1,
   },
 });

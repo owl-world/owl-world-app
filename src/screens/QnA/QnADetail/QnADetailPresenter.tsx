@@ -45,7 +45,7 @@ export const QnADetailPresenter = ({
 
         <SplitRow height={30} />
 
-        <ScrollView style={styles.fullScreen}>
+        <ScrollView style={styles.fullScreen} contentContainerStyle={styles.contentContainer}>
           <QuestionRow question={question} isMember={!!question.member} />
 
           <SplitRow height={30} />
@@ -85,6 +85,9 @@ const styles = StyleSheet.create({
   },
   fullScreen: {
     flex: 1,
+  },
+  contentContainer: {
+    paddingHorizontal: 10,
   },
   inputContainer: {
     paddingHorizontal: 10,

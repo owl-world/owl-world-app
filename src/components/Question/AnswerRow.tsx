@@ -16,7 +16,7 @@ type Props = {
 
 export const AnswerRow = ({ answer, isOwner, onPressLike, onPressAccept }: Props) => {
   return (
-    <View style={styles.container}>
+    <View>
       <Row style={styles.spaceBetween}>
         <Row>
           {answer.member.universityMajorDto ? (
@@ -70,9 +70,6 @@ export const AnswerRow = ({ answer, isOwner, onPressLike, onPressAccept }: Props
 const styles = StyleSheet.create({
   spaceBetween: {
     justifyContent: 'space-between',
-  },
-  container: {
-    paddingHorizontal: 10,
   },
   logo: {
     width: 36,
